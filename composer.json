@@ -1,0 +1,54 @@
+{
+    "name": "laracrafts/laravel-url-shortener",
+    "description": "Powerful URL shortening tools in Laravel",
+    "keywords": [
+        "laravel",
+        "lumen",
+        "url",
+        "shortening",
+        "shortener",
+        "bit.ly",
+        "tinyURL",
+        "shorte.st"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Choraimy Kroonstuiver",
+            "email": "choraimy@live.nl"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "guzzlehttp/guzzle": "^6.2",
+        "guzzlehttp/promises": "^1.0",
+        "guzzlehttp/psr7": "^1.0",
+        "illuminate/support": "^5.1,<5.9",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.1",
+        "phpunit/phpunit": "^5.0 || ^6.0 || ^7.0 || ^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaraCrafts\\UrlShortener\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaraCrafts\\UrlShortener\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "\\LaraCrafts\\UrlShortener\\UrlShortenerServiceProvider"
+            ]
+        }
+    }
+}

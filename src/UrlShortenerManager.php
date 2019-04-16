@@ -1,0 +1,94 @@
+<?php
+
+namespace LaraCrafts\UrlShortener;
+
+use GuzzleHttp\ClientInterface;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Manager;
+use Illuminate\Support\Str;
+use LaraCrafts\UrlShortener\Contracts\Factory;
+use LaraCrafts\UrlShortener\Http\BitLyShortener;
+use LaraCrafts\UrlShortener\Http\ShorteStShortener;
+use LaraCrafts\UrlShortener\Http\TinyUrlShortener;
+
+/**
+ * @mixin \LaraCrafts\UrlShortener\Contracts\Shortener
+ */
+class UrlShortenerManager extends Manager implements Factory
+{
+    /**
+     * Create an instance of the Bit.ly driver.
+     *
+     * @return \LaraCrafts\UrlShortener\Http\BitLyShortener
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function createBitLyDriver()
+    {
+        $config = $this->getDriverConfig('bit_ly');
+
+        return new BitLyShortener(
+            $this->app->make(ClientInterface::class),
+            Arr::get($config, 'token'),
+            Arr::get($config, 'domain', 'bit.ly')
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function createDriver($driver)
+    {
+        # This fixes backwards compatibility issues with this function
+        if (method_exists($this, $method = 'create' . Str::studly($driver) . 'Driver')) {
+            return $this->$method();
+        }
+
+        return parent::createDriver($driver);
+    }
+
+    /**
+     * Create a new instance of the Shorte.st driver.
+     *
+     * @return \LaraCrafts\UrlShortener\Http\ShorteStShortener
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function createShorteStDriver()
+    {
+        $config = $this->getDriverConfig('shorte_st');
+
+        return new ShorteStShortener(
+            $this->app->make(ClientInterface::class),
+            Arr::get($config, 'token')
+        );
+    }
+
+    /**
+     * Create an instance of the TinyURL driver.
+     *
+     * @return \LaraCrafts\UrlShortener\Http\TinyUrlShortener
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function createTinyUrlDriver()
+    {
+        return new TinyUrlShortener($this->app->make(ClientInterface::class));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDefaultDriver()
+    {
+        return $this->app['config']['url-shortener.default'];
+    }
+
+    /**
+     * Get the driver configuration.
+     *
+     * @param string $name
+     * @return array
+     */
+    protected function getDriverConfig(string $name)
+    {
+        return $this->app['config']["url-shortener.drivers.$name"] ?: [];
+    }
+}
