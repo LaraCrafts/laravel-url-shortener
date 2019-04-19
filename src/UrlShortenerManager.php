@@ -8,6 +8,7 @@ use Illuminate\Support\Manager;
 use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Contracts\Factory;
 use LaraCrafts\UrlShortener\Http\BitLyShortener;
+use LaraCrafts\UrlShortener\Http\OuoIoShortener;
 use LaraCrafts\UrlShortener\Http\ShorteStShortener;
 use LaraCrafts\UrlShortener\Http\TinyUrlShortener;
 
@@ -47,7 +48,23 @@ class UrlShortenerManager extends Manager implements Factory
     }
 
     /**
-     * Create a new instance of the Shorte.st driver.
+     * Create an instance of the Ouo.io driver.
+     *
+     * @return \LaraCrafts\UrlShortener\Http\OuoIoShortener
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function createOuoIoDriver()
+    {
+        $config = $this->getDriverConfig('ouo_io');
+
+        return new OuoIoShortener(
+            $this->app->make(ClientInterface::class),
+            Arr::get($config, 'token')
+        );
+    }
+
+    /**
+     * Create an instance of the Shorte.st driver.
      *
      * @return \LaraCrafts\UrlShortener\Http\ShorteStShortener
      * @throws \Illuminate\Contracts\Container\BindingResolutionException

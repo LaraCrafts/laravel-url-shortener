@@ -11,6 +11,10 @@ return [
             'token' => env('BIT_LY_API_TOKEN'),
         ],
 
+        'ouo_io' => [
+            'token' => env('OUO_IO_API_TOKEN'),
+        ],
+
         'shorte_st' => [
             'token' => env('SHORTE_ST_API_TOKEN'),
         ],
