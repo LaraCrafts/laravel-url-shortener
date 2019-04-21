@@ -18,8 +18,10 @@ Powerful URL shortening tools in Laravel
     - [Changing the default driver](#changing-the-default-driver)
 - [Available drivers](#available-drivers)
     - [Bit.ly](#bitly)
+    - [Is.gd](#isgd--vgd)
     - [Shorte.st](#shortest)
     - [TinyURL](#tinyurl)
+    - [V.gd](#isgd--vgd)
     
 ## Installation
 You can easily install this package using Composer, by running the following command:
