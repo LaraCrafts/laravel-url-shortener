@@ -19,6 +19,7 @@ Powerful URL shortening tools in Laravel
 - [Available drivers](#available-drivers)
     - [Bit.ly](#bitly)
     - [Is.gd](#isgd--vgd)
+    - [Ouo.io](#ouoio)
     - [Shorte.st](#shortest)
     - [TinyURL](#tinyurl)
     - [V.gd](#isgd--vgd)
@@ -117,33 +118,57 @@ Below is a list of available drivers along with their individual specs:
 
 Service                | Driver name | Since version | Analytics | Monetization
 -----------------------|-------------|---------------|-----------|-----------------
-[Bit.ly](#bitly)       | `bit_ly`    | 1.0.0         | yes       | no
+[Bit.ly](#bitly)       | `bit_ly`    | 0.1.0         | yes       | no
 [Is.gd](#isgd--vgd)    | `is_gd`     | 0.2.0         | yes       | no
-[Shorte.st](#shortest) | `shorte_st` | 1.0.0         | yes       | yes
-[TinyURL](#tinyurl)    | `tiny_url`  | 1.0.0         | no        | no
+[Ouo.io](#ouoio)       | `ouo_io`    | 0.2.0         | yes       | yes
+[Shorte.st](#shortest) | `shorte_st` | 0.1.0         | yes       | yes
+[TinyURL](#tinyurl)    | `tiny_url`  | 0.1.0         | no        | no
 [V.gd](#isgd--vgd)     | `is_gd`     | 0.2.0         | yes       | no
 
 ### Bit.ly
 [website](https://bit.ly)
 
-This driver uses the Bit.ly API version 4, which requires an access token. Currently only _generic access tokens_ are
-supported, which you can set using the `BIT_LY_API_TOKEN` environment variable. This driver also supports custom domains
-(if you have a paid Bit.ly account) which can be set through the `BIT_LY_DOMAIN` environment variable.
+This driver runs on Bit.ly's API and currently only supports API version 4. The API requires an access token and
+currently only _generic access tokens_ are supported. You can retrieve such tokens from your Bit.ly profile. If you have
+a paid Bit.ly account you will also be able to set the domain for your shortened URLs.
+
+Variable           | Description
+-------------------|----------------------
+`BIT_LY_API_TOKEN` | Your Bit.ly API token
+`BIT_LY_DOMAIN`    | Your short URL domain
 
 ### Is.gd / V.gd
 [website](https://is.gd)
 
-This driver uses the is.gd and v.gd APIs. By default it uses is.gd, to switch to v.gd set the`IS_GD_LINK_PREVIEWS`
-environment variable to `true`. This driver also supports link statics, to enable statistics set the `IS_GD_STATISTICS`
-environment variable to `true`.
+This driver supports [is.gd](https://is.gd) and [v.gd](https://v.gd) trough their respective APIs. When link previews
+are enabled v.gd will be used, otherwise is.gd will be used.
+
+Variable              | Description
+----------------------|----------------------------------------
+`IS_GD_LINK_PREVIEWS` | Enable or disable destination previews
+`IS_GD_STATISTICS`    | Enable or disable statistics
+
+### Ouo.io
+[website](https://ouo.io)
+
+This driver uses the Ouo.io API and requires an access token. The API allows for URL monetization via advertisements and
+provides analytics via it's dashboard.
+
+Variable           | Description 
+-------------------|----------------------
+`OUO_IO_API_TOKEN` | Your Ouo.io API token
 
 ### Shorte.st
 [website](https://shorte.st)
 
-This driver uses the Shorte.st API, which requires an access token. You can set this token by adding the
-`SHORTE_ST_API_TOKEN` environment variable or publishing and editing the package config file.
+This driver uses the Shorte.st API, which requires an access token. This API supports monetization of your URLs and can
+give you insight into your traffic via it's dashboard.
+
+Variable              | Description
+----------------------|-------------------------
+`SHORTE_ST_API_TOKEN` | Your Shorte.st API token
 
 ### TinyURL
 [website](http://tinyurl.com)
 
-This driver uses the TinyURL API and does not require any additional setup, this driver is also the package default.
+This driver runs on the TinyURL API, which requires no additional setup. This driver is the package default.
