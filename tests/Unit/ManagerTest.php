@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Http\BitLyShortener;
+use LaraCrafts\UrlShortener\Http\IsGdShortener;
 use LaraCrafts\UrlShortener\Http\OuoIoShortener;
 use LaraCrafts\UrlShortener\Http\ShorteStShortener;
 use LaraCrafts\UrlShortener\Http\TinyUrlShortener;
@@ -26,6 +27,7 @@ class ManagerTest extends TestCase
     {
         parent::setUp();
 
+        $this->app['config']['url-shortener'] = require __DIR__ . '/../../config/url-shortener.php';
         $this->app['config']['url-shortener.drivers.bit_ly.token'] = Str::random(32);
         $this->app['config']['url-shortener.drivers.ouo_io.token'] = Str::random(32);
         $this->app['config']['url-shortener.drivers.shorte_st.token'] = Str::random(32);
@@ -56,6 +58,17 @@ class ManagerTest extends TestCase
         $driver = $this->manager->driver();
 
         $this->assertInstanceOf(TinyUrlShortener::class, $driver);
+    }
+
+    /**
+     * Test Is.gd driver creation.
+     *
+     * @return void
+     */
+    public function testIsGdDriverCreation()
+    {
+        $driver = $this->manager->driver('is_gd');
+        $this->assertInstanceOf(IsGdShortener::class, $driver);
     }
 
     /**

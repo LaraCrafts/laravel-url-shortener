@@ -8,6 +8,7 @@ use Illuminate\Support\Manager;
 use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Contracts\Factory;
 use LaraCrafts\UrlShortener\Http\BitLyShortener;
+use LaraCrafts\UrlShortener\Http\IsGdShortener;
 use LaraCrafts\UrlShortener\Http\OuoIoShortener;
 use LaraCrafts\UrlShortener\Http\ShorteStShortener;
 use LaraCrafts\UrlShortener\Http\TinyUrlShortener;
@@ -45,6 +46,23 @@ class UrlShortenerManager extends Manager implements Factory
         }
 
         return parent::createDriver($driver);
+    }
+
+    /**
+     * Create an instance of the Is.gd driver.
+     *
+     * @return \LaraCrafts\UrlShortener\Http\IsGdShortener
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function createIsGdDriver()
+    {
+        $config = $this->getDriverConfig('is_gd');
+
+        return new IsGdShortener(
+            $this->app->make(ClientInterface::class),
+            Arr::get($config, 'link_previews'),
+            Arr::get($config, 'statistics')
+        );
     }
 
     /**

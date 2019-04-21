@@ -116,8 +116,10 @@ Below is a list of available drivers along with their individual specs:
 Service                | Driver name | Since version | Analytics | Monetization
 -----------------------|-------------|---------------|-----------|-----------------
 [Bit.ly](#bitly)       | `bit_ly`    | 1.0.0         | yes       | no
+[Is.gd](#isgd--vgd)    | `is_gd`     | 0.2.0         | yes       | no
 [Shorte.st](#shortest) | `shorte_st` | 1.0.0         | yes       | yes
 [TinyURL](#tinyurl)    | `tiny_url`  | 1.0.0         | no        | no
+[V.gd](#isgd--vgd)     | `is_gd`     | 0.2.0         | yes       | no
 
 ### Bit.ly
 [website](https://bit.ly)
@@ -125,6 +127,13 @@ Service                | Driver name | Since version | Analytics | Monetization
 This driver uses the Bit.ly API version 4, which requires an access token. Currently only _generic access tokens_ are
 supported, which you can set using the `BIT_LY_API_TOKEN` environment variable. This driver also supports custom domains
 (if you have a paid Bit.ly account) which can be set through the `BIT_LY_DOMAIN` environment variable.
+
+### Is.gd / V.gd
+[website](https://is.gd)
+
+This driver uses the is.gd and v.gd APIs. By default it uses is.gd, to switch to v.gd set the`IS_GD_LINK_PREVIEWS`
+environment variable to `true`. This driver also supports link statics, to enable statistics set the `IS_GD_STATISTICS`
+environment variable to `true`.
 
 ### Shorte.st
 [website](https://shorte.st)
