@@ -109,6 +109,7 @@ Method         | Description
 `shorten`      | Shorten the given URL
 `shortenAsync` | Shorten the given URL asynchronously
 `driver`       | Retrieve a driver (e.g. `tiny_url`)
+`extend`       | Register your own driver
 
 ### Changing the driver
 You can change the default driver by setting `URL_SHORTENER_DRIVER={driver}` in your environment file or publishing the
