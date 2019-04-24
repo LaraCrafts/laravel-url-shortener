@@ -129,7 +129,7 @@ If you are adding a web hosted shortener service you may want to extend the `Rem
 you can use the shipped drivers (e.g. `TinyUrlShortener`) as an example as to how.
 
 If you wrote a custom driver that others might find useful (such as a public online shortener service), please consider
-adding it to the core package via a pull request.
+adding it to the package via a pull request.
 
 ## Available drivers
 Below is a list of available drivers along with their individual specs:
@@ -170,7 +170,7 @@ Variable              | Description
 [website](https://ouo.io)
 
 This driver uses the Ouo.io API and requires an access token. The API allows for URL monetization via advertisements and
-provides analytics via it's dashboard.
+provides analytics via its dashboard.
 
 Variable           | Description 
 -------------------|----------------------
@@ -180,7 +180,7 @@ Variable           | Description
 [website](https://shorte.st)
 
 This driver uses the Shorte.st API, which requires an access token. This API supports monetization of your URLs and can
-give you insight into your traffic via it's dashboard.
+give you insight into your traffic via its dashboard.
 
 Variable              | Description
 ----------------------|-------------------------
