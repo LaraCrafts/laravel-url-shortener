@@ -18,9 +18,11 @@ Powerful URL shortening tools in Laravel
     - [Changing the default driver](#changing-the-default-driver)
 - [Available drivers](#available-drivers)
     - [Bit.ly](#bitly)
+    - [Is.gd](#isgd--vgd)
     - [Ouo.io](#ouoio)
     - [Shorte.st](#shortest)
     - [TinyURL](#tinyurl)
+    - [V.gd](#isgd--vgd)
     
 ## Installation
 You can easily install this package using Composer, by running the following command:
@@ -117,9 +119,11 @@ Below is a list of available drivers along with their individual specs:
 Service                | Driver name | Since version | Analytics | Monetization
 -----------------------|-------------|---------------|-----------|-----------------
 [Bit.ly](#bitly)       | `bit_ly`    | 0.1.0         | yes       | no
+[Is.gd](#isgd--vgd)    | `is_gd`     | 0.2.0         | yes       | no
 [Ouo.io](#ouoio)       | `ouo_io`    | 0.2.0         | yes       | yes
 [Shorte.st](#shortest) | `shorte_st` | 0.1.0         | yes       | yes
 [TinyURL](#tinyurl)    | `tiny_url`  | 0.1.0         | no        | no
+[V.gd](#isgd--vgd)     | `is_gd`     | 0.2.0         | yes       | no
 
 ### Bit.ly
 [website](https://bit.ly)
@@ -132,6 +136,17 @@ Variable           | Description
 -------------------|----------------------
 `BIT_LY_API_TOKEN` | Your Bit.ly API token
 `BIT_LY_DOMAIN`    | Your short URL domain
+
+### Is.gd / V.gd
+[website](https://is.gd)
+
+This driver supports [is.gd](https://is.gd) and [v.gd](https://v.gd) trough their respective APIs. When link previews
+are enabled v.gd will be used, otherwise is.gd will be used.
+
+Variable              | Description
+----------------------|----------------------------------------
+`IS_GD_LINK_PREVIEWS` | Enable or disable destination previews
+`IS_GD_STATISTICS`    | Enable or disable statistics
 
 ### Ouo.io
 [website](https://ouo.io)

@@ -11,6 +11,11 @@ return [
             'token' => env('BIT_LY_API_TOKEN'),
         ],
 
+        'is_gd' => [
+            'link_previews' => env('IS_GD_LINK_PREVIEWS', false),
+            'statistics' => env('IS_GD_STATISTICS', false),
+        ],
+
         'ouo_io' => [
             'token' => env('OUO_IO_API_TOKEN'),
         ],

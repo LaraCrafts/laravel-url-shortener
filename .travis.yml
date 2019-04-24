@@ -19,6 +19,7 @@ env:
   - ILLUMINATE_VERSION=5.7.* TESTBENCH_VERSION=3.7.* PHPUNIT_VERSION=^7.0
   - ILLUMINATE_VERSION=5.8.* TESTBENCH_VERSION=3.8.* PHPUNIT_VERSION=^7.0 || ^8.0
 
+dist: xenial
 sudo: false
 
 before_install:
