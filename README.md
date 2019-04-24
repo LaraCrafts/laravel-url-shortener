@@ -84,6 +84,9 @@ app('url')->shorten(...);
 
 // or...
 url()->shorten(...);
+
+// or even...
+UrlShortener::shorten(...);
 ```
 
 This package relies on Guzzle's promise library for its asynchronous shortening, read their
