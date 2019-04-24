@@ -46,6 +46,9 @@
     },
     "extra": {
         "laravel": {
+            "aliases": {
+                "UrlShortener": "\\LaraCrafts\\UrlShortener\\Support\\Facades\\UrlShortener"
+            },
             "providers": [
                 "\\LaraCrafts\\UrlShortener\\UrlShortenerServiceProvider"
             ]
