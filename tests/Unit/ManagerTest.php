@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Http\BitLyShortener;
+use LaraCrafts\UrlShortener\Http\FirebaseShortener;
 use LaraCrafts\UrlShortener\Http\IsGdShortener;
 use LaraCrafts\UrlShortener\Http\OuoIoShortener;
 use LaraCrafts\UrlShortener\Http\ShorteStShortener;
@@ -29,6 +30,8 @@ class ManagerTest extends TestCase
 
         $this->app['config']['url-shortener'] = require __DIR__ . '/../../config/url-shortener.php';
         $this->app['config']['url-shortener.drivers.bit_ly.token'] = Str::random(32);
+        $this->app['config']['url-shortener.drivers.firebase.token'] = Str::random(32);
+        $this->app['config']['url-shortener.drivers.firebase.prefix'] = Str::random(32).'.com';
         $this->app['config']['url-shortener.drivers.ouo_io.token'] = Str::random(32);
         $this->app['config']['url-shortener.drivers.shorte_st.token'] = Str::random(32);
 
@@ -58,6 +61,17 @@ class ManagerTest extends TestCase
         $driver = $this->manager->driver();
 
         $this->assertInstanceOf(TinyUrlShortener::class, $driver);
+    }
+
+    /**
+     * Test Firebase driver creation.
+     *
+     * @return void
+     */
+    public function testFirebaseDriverCreation()
+    {
+        $driver = $this->manager->driver('firebase');
+        $this->assertInstanceOf(FirebaseShortener::class, $driver);
     }
 
     /**

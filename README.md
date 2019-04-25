@@ -18,6 +18,7 @@ Powerful URL shortening tools in Laravel
     - [Changing the default driver](#changing-the-default-driver)
 - [Available drivers](#available-drivers)
     - [Bit.ly](#bitly)
+    - [Firebase Dynamic Links](#firebase-dynamic-links)
     - [Is.gd](#isgd--vgd)
     - [Ouo.io](#ouoio)
     - [Shorte.st](#shortest)
@@ -136,6 +137,22 @@ Variable           | Description
 -------------------|----------------------
 `BIT_LY_API_TOKEN` | Your Bit.ly API token
 `BIT_LY_DOMAIN`    | Your short URL domain
+
+### Firebase Dynamic Links
+[website](https://firebase.google.com/)
+
+This driver runs on Firebase's API. The API requires an access token, a URI prefix and a suffix. You can access these
+information on you firebase console. The token accessible under the project settings as "Web API Key" and the prefixes
+can be defined and accessed under the Dynamic Links menu. 
+
+The suffix have the value of `SHORT` or `UNGUESSABLE`. If other values are set the library will use the `UNGUESSABLE`
+value.
+
+Variable              | Description                        | Default
+----------------------|------------------------------------|---------------
+`FIREBASE_API_TOKEN`  | Your Firebase API token            |
+`FIREBASE_URI_PREFIX` | Your URL prefix                    |
+`FIREBASE_SUFFIX`     | The path component creation method | `UNGUESSABLE`
 
 ### Is.gd / V.gd
 [website](https://is.gd)
