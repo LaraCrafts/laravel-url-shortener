@@ -31,7 +31,7 @@ class ManagerTest extends TestCase
         $this->app['config']['url-shortener'] = require __DIR__ . '/../../config/url-shortener.php';
         $this->app['config']['url-shortener.drivers.bit_ly.token'] = Str::random(32);
         $this->app['config']['url-shortener.drivers.firebase.token'] = Str::random(32);
-        $this->app['config']['url-shortener.drivers.firebase.prefix'] = Str::random(32).'.com';
+        $this->app['config']['url-shortener.drivers.firebase.prefix'] = Str::random(32) . '.com';
         $this->app['config']['url-shortener.drivers.ouo_io.token'] = Str::random(32);
         $this->app['config']['url-shortener.drivers.shorte_st.token'] = Str::random(32);
 
