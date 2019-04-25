@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Http\OuoIoShortener;
+use LaraCrafts\UrlShortener\Tests\Constraint\IsValidUrl;
 use Orchestra\Testbench\TestCase;
 
 class OuoIoShortenerTest extends TestCase
@@ -38,6 +39,7 @@ class OuoIoShortenerTest extends TestCase
     {
         $shortUrl = $this->shortener->shorten('https://google.com');
         $this->assertInternalType('string', $shortUrl);
+        $this->assertThat($shortUrl, new IsValidUrl());
         $this->assertTrue(Str::startsWith($shortUrl, 'https://ouo.io/'));
     }
 
@@ -51,7 +53,9 @@ class OuoIoShortenerTest extends TestCase
         $promise = $this->shortener->shortenAsync('https://google.com');
 
         $this->assertInstanceOf(PromiseInterface::class, $promise);
-        $this->assertInternalType('string', $shortUrl = $promise->wait());
+        $shortUrl = $promise->wait();
+        $this->assertInternalType('string', $shortUrl);
+        $this->assertThat($shortUrl, new IsValidUrl());
         $this->assertTrue(Str::startsWith($shortUrl, 'https://ouo.io/'));
     }
 }

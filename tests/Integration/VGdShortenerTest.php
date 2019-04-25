@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Http\IsGdShortener;
+use LaraCrafts\UrlShortener\Tests\Constraint\IsValidUrl;
 use Orchestra\Testbench\TestCase;
 
 class VGdShortenerTest extends TestCase
@@ -33,6 +34,7 @@ class VGdShortenerTest extends TestCase
     {
         $shortUrl = $this->shortener->shorten('https://google.com');
         $this->assertInternalType('string', $shortUrl);
+        $this->assertThat($shortUrl, new IsValidUrl());
         $this->assertTrue(Str::startsWith($shortUrl, 'https://v.gd'));
     }
 
@@ -45,7 +47,9 @@ class VGdShortenerTest extends TestCase
     {
         $promise = $this->shortener->shortenAsync('https://google.com');
         $this->assertInstanceOf(PromiseInterface::class, $promise);
-        $this->assertInternalType('string', $shortUrl = $promise->wait());
+        $shortUrl = $promise->wait();
+        $this->assertThat($shortUrl, new IsValidUrl());
+        $this->assertInternalType('string', $shortUrl);
         $this->assertTrue(Str::startsWith($shortUrl, 'https://v.gd'));
     }
 }
