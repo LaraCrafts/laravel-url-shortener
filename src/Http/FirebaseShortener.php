@@ -36,6 +36,7 @@ class FirebaseShortener extends RemoteShortener
             'base_uri' => 'https://firebasedynamiclinks.googleapis.com',
             'headers' => [
                 'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
             ],
             'query' => [
                 'key' => $token,
