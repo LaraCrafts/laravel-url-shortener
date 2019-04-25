@@ -33,7 +33,7 @@ class FirebaseShortenerTest extends TestCase
     }
 
     /**
-     * Test Shorte.st synchronous shortening.
+     * Test Firebase synchronous shortening.
      *
      * @return void
      */
@@ -44,7 +44,7 @@ class FirebaseShortenerTest extends TestCase
     }
 
     /**
-     * Test Shorte.st asynchronous shortening.
+     * Test Firebase asynchronous shortening.
      *
      * @return void
      */
