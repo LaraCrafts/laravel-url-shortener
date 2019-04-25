@@ -145,8 +145,7 @@ This driver runs on Firebase's API. The API requires an access token, a URI pref
 information on you firebase console. The token accessible under the project settings as "Web API Key" and the prefixes
 can be defined and accessed under the Dynamic Links menu. 
 
-The suffix have the value of `SHORT` or `UNGUESSABLE`. If other values are set the library will use the `UNGUESSABLE`
-value.
+The suffix can have the value `SHORT` or `UNGUESSABLE`.
 
 Variable              | Description                        | Default
 ----------------------|------------------------------------|---------------

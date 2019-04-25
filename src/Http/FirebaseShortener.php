@@ -5,14 +5,11 @@ namespace LaraCrafts\UrlShortener\Http;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Psr\Http\Message\ResponseInterface;
 use function GuzzleHttp\json_decode;
 
 class FirebaseShortener extends RemoteShortener
 {
-    private static $SUFFIXES = ['UNGUESSABLE', 'SHORT'];
-
     protected $client;
     protected $defaults;
 
@@ -26,10 +23,6 @@ class FirebaseShortener extends RemoteShortener
      */
     public function __construct(ClientInterface $client, string $token, string $domain, string $suffix)
     {
-        if (!Arr::has(self::$SUFFIXES, Str::upper($suffix))) {
-            $suffix = self::$SUFFIXES[0];
-        }
-
         $this->client = $client;
         $this->defaults = [
             'allow_redirects' => false,
