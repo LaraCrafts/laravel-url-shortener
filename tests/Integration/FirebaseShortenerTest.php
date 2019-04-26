@@ -10,9 +10,14 @@ use Orchestra\Testbench\TestCase;
 class FirebaseShortenerTest extends TestCase
 {
     /**
-     * @var \LaraCrafts\UrlShortener\Http\FirebaseShortener
+     * @var string
      */
-    protected $shortener;
+    private $token;
+
+    /**
+     * @var string
+     */
+    private $prefix;
 
     /**
      * {@inheritDoc}
@@ -29,28 +34,44 @@ class FirebaseShortenerTest extends TestCase
             $this->markTestSkipped('No Firebase URI prefix set');
         }
 
-        $this->shortener = new FirebaseShortener(new Client, $token, $prefix, 'SHORT');
+        $this->token = $token;
+        $this->prefix = $prefix;
+    }
+
+    public function suffixProvider()
+    {
+        return [
+            'Short' => ['SHORT'],
+            'Unguessable' => ['UNGUESSABLE'],
+        ];
     }
 
     /**
      * Test Firebase synchronous shortening.
      *
+     * @param string $suffix
      * @return void
+     * @dataProvider suffixProvider
      */
-    public function testShorten()
+    public function testShorten(string $suffix)
     {
-        $shortUrl = $this->shortener->shorten('https://google.com');
+        $shortener = new FirebaseShortener(new Client, $this->token, $this->prefix, $suffix);
+        $shortUrl = $shortener->shorten('https://google.com');
+
         $this->assertInternalType('string', $shortUrl);
     }
 
     /**
      * Test Firebase asynchronous shortening.
      *
+     * @param string $suffix
      * @return void
+     * @dataProvider suffixProvider
      */
-    public function testShortenAsync()
+    public function testShortenAsync(string $suffix)
     {
-        $promise = $this->shortener->shortenAsync('https://google.com');
+        $shortener = new FirebaseShortener(new Client, $this->token, $this->prefix, $suffix);
+        $promise = $shortener->shortenAsync('https://google.com');
 
         $this->assertInstanceOf(PromiseInterface::class, $promise);
         $this->assertInternalType('string', $promise->wait());
