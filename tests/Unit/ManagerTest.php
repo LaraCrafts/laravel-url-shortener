@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Http\BitLyShortener;
+use LaraCrafts\UrlShortener\Http\FirebaseShortener;
 use LaraCrafts\UrlShortener\Http\IsGdShortener;
 use LaraCrafts\UrlShortener\Http\OuoIoShortener;
 use LaraCrafts\UrlShortener\Http\ShorteStShortener;
@@ -21,6 +22,24 @@ class ManagerTest extends TestCase
     protected $manager;
 
     /**
+     * Provider driver data.
+     *
+     * @return array
+     */
+    public function driverProvider()
+    {
+        return [
+            'Default' => [null, TinyUrlShortener::class],
+            'Bit.ly' => ['bit_ly', BitLyShortener::class],
+            'Firebase' => ['firebase', FirebaseShortener::class],
+            'Is.gd' => ['is_gd', IsGdShortener::class],
+            'Ouo.io' => ['ouo_io', OuoIoShortener::class],
+            'Shorte.st' => ['shorte_st', ShorteStShortener::class],
+            'TinyURL' => ['tiny_url', TinyUrlShortener::class],
+        ];
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function setUp(): void
@@ -29,6 +48,8 @@ class ManagerTest extends TestCase
 
         $this->app['config']['url-shortener'] = require __DIR__ . '/../../config/url-shortener.php';
         $this->app['config']['url-shortener.drivers.bit_ly.token'] = Str::random(32);
+        $this->app['config']['url-shortener.drivers.firebase.token'] = Str::random(32);
+        $this->app['config']['url-shortener.drivers.firebase.prefix'] = Str::random(32) . '.com';
         $this->app['config']['url-shortener.drivers.ouo_io.token'] = Str::random(32);
         $this->app['config']['url-shortener.drivers.shorte_st.token'] = Str::random(32);
 
@@ -37,70 +58,13 @@ class ManagerTest extends TestCase
     }
 
     /**
-     * Test Bit.ly driver creation.
-     *
+     * @param string|null $driver
+     * @param string $expected
      * @return void
+     * @dataProvider driverProvider
      */
-    public function testBitLyDriverCreation()
+    public function testDriverCreation(?string $driver, string $expected)
     {
-        $driver = $this->manager->driver('bit_ly');
-        $this->assertInstanceOf(BitLyShortener::class, $driver);
-    }
-
-    /**
-     * Test the default driver creation.
-     *
-     * @return void
-     */
-    public function testDefaultDriverCreation()
-    {
-        $this->app['config']['url-shortener.default'] = 'tiny_url';
-        $driver = $this->manager->driver();
-
-        $this->assertInstanceOf(TinyUrlShortener::class, $driver);
-    }
-
-    /**
-     * Test Is.gd driver creation.
-     *
-     * @return void
-     */
-    public function testIsGdDriverCreation()
-    {
-        $driver = $this->manager->driver('is_gd');
-        $this->assertInstanceOf(IsGdShortener::class, $driver);
-    }
-
-    /**
-     * Test Ouo.io driver creation.
-     *
-     * @return void
-     */
-    public function testOuoIoDriverCreation()
-    {
-        $driver = $this->manager->driver('ouo_io');
-        $this->assertInstanceOf(OuoIoShortener::class, $driver);
-    }
-
-    /**
-     * Test Shorte.st driver creation.
-     *
-     * @return void
-     */
-    public function testShorteStDriverCreation()
-    {
-        $driver = $this->manager->driver('shorte_st');
-        $this->assertInstanceOf(ShorteStShortener::class, $driver);
-    }
-
-    /**
-     * Test TinyURL driver creation.
-     *
-     * @return void
-     */
-    public function testTinyUrlDriverCreation()
-    {
-        $driver = $this->manager->driver('tiny_url');
-        $this->assertInstanceOf(TinyUrlShortener::class, $driver);
+        $this->assertInstanceOf($expected, $this->manager->driver($driver));
     }
 }
