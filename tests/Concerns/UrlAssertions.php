@@ -17,7 +17,7 @@ trait CustomAssertions
      */
     public static function assertRedirectsTo($expected, $actual, int $redirects = 1)
     {
-        static::assertThat($actual, new RedirectsTo($expected, $redirects));
+        static::assertThat($actual, static::redirectsTo($expected, $redirects));
     }
 
     /**
@@ -27,6 +27,16 @@ trait CustomAssertions
      */
     public static function assertValidUrl($actual)
     {
-        static::assertThat($actual, new IsValidUrl);
+        static::assertThat($actual, static::isValidUrl());
+    }
+
+    public static function isValidUrl(): IsValidUrl
+    {
+        return new IsValidUrl;
+    }
+
+    public static function redirectsTo($expected, int $redirects = 1): RedirectsTo
+    {
+        return new RedirectsTo($expected, $redirects);
     }
 }

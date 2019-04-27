@@ -19,7 +19,7 @@ class RedirectsTo extends Constraint
      * @param int $redirects
      * @return void
      */
-    public function __construct($destination, int $redirects)
+    public function __construct($destination, int $redirects = 1)
     {
         $this->client = new Client();
         $this->destination = rtrim($destination, '/');
