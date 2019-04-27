@@ -14,12 +14,13 @@ class FirebaseShortener extends RemoteShortener
     protected $defaults;
 
     /**
-     * Create a new Shorte.st shortener.
+     * Create a new Firebase shortener.
      *
      * @param \GuzzleHttp\ClientInterface $client
      * @param string $token
      * @param string $domain
      * @param string $suffix
+     * @return void
      */
     public function __construct(ClientInterface $client, string $token, string $domain, string $suffix)
     {
@@ -46,11 +47,7 @@ class FirebaseShortener extends RemoteShortener
     }
 
     /**
-     * Shorten the given URL asynchronously.
-     *
-     * @param \Psr\Http\Message\UriInterface|string $url
-     * @param array $options
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * {@inheritDoc}
      */
     public function shortenAsync($url, array $options = [])
     {

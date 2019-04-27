@@ -38,6 +38,11 @@ class FirebaseShortenerTest extends TestCase
         $this->prefix = $prefix;
     }
 
+    /**
+     * Provide suffix data.
+     *
+     * @return array
+     */
     public function suffixProvider()
     {
         return [
