@@ -6,12 +6,12 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Http\IsGdShortener;
-use LaraCrafts\UrlShortener\Tests\Concerns\CustomAssertions;
+use LaraCrafts\UrlShortener\Tests\Concerns\HasUrlAssertions;
 use Orchestra\Testbench\TestCase;
 
 class VGdShortenerTest extends TestCase
 {
-    use CustomAssertions;
+    use HasUrlAssertions;
 
     /**
      * @var \LaraCrafts\UrlShortener\Http\IsGdShortener

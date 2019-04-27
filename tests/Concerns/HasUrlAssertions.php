@@ -5,7 +5,7 @@ namespace LaraCrafts\UrlShortener\Tests\Concerns;
 use LaraCrafts\UrlShortener\Tests\Constraints\IsValidUrl;
 use LaraCrafts\UrlShortener\Tests\Constraints\RedirectsTo;
 
-trait CustomAssertions
+trait HasUrlAssertions
 {
     /**
      * Assert that the given value redirects to the expected value.

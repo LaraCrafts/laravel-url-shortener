@@ -5,13 +5,13 @@ namespace LaraCrafts\UrlShortener\Tests\Integration;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use LaraCrafts\UrlShortener\Http\ShorteStShortener;
-use LaraCrafts\UrlShortener\Tests\Concerns\CustomAssertions;
+use LaraCrafts\UrlShortener\Tests\Concerns\HasUrlAssertions;
 use LaraCrafts\UrlShortener\Tests\Constraints\IsValidUrl;
 use Orchestra\Testbench\TestCase;
 
 class ShorteStShortenerTest extends TestCase
 {
-    use CustomAssertions;
+    use HasUrlAssertions;
 
     /**
      * @var \LaraCrafts\UrlShortener\Http\ShorteStShortener
