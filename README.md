@@ -112,12 +112,21 @@ Method         | Description
 ---------------|-------------------------------------
 `shorten`      | Shorten the given URL
 `shortenAsync` | Shorten the given URL asynchronously
+`shortenUsing` | Shorten the given URL using the given driver
+`shortenAsyncUsing` | Shorten the given URL asynchronously using the given driver
 `driver`       | Retrieve a driver (e.g. `tiny_url`)
 `extend`       | Register your own driver
 
 ### Changing the driver
-You can change the default driver by setting `URL_SHORTENER_DRIVER={driver}` in your environment file or publishing the
-config file and changing it directly.
+To determine which driver to use while shortening the given URL, you may use the `shortenUsing` and the `shortenAsyncUsing` methods.
+
+#### Example
+```php
+url()->shortenUsing('bit_ly', 'https://www.google.com')
+url()->shortenAsyncUsing('shorte_st', 'https://github.com/LaraCrafts')
+```
+
+> NOTE: You may also change the default driver directly in the configuration by setting `URL_SHORTENER_DRIVER={driver}` in your environment file or by publishing the configuration file and changing the `default` key to your preferred driver.
 
 ### Adding your own drivers
 Much like Laravels [core components](https://laravel.com/docs/5.0/extending#managers-and-factories), you can add your
@@ -214,3 +223,9 @@ Variable              | Description
 [website](http://tinyurl.com)
 
 This driver runs on the TinyURL API, which requires no additional setup. This driver is the package default.
+
+## License
+
+Copyright (c) 2019 LaraCrafts.
+
+This product is licensed under the MIT license, please refer to the [license file](../blob/master/LICENSE) for more information.
