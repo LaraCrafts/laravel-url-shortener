@@ -7,7 +7,6 @@ use GuzzleHttp\ClientInterface;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use LaraCrafts\UrlShortener\Support\Facades\UrlShortener;
 
 class UrlShortenerServiceProvider extends ServiceProvider
 {
