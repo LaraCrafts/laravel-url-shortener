@@ -7,6 +7,7 @@ use GuzzleHttp\ClientInterface;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use LaraCrafts\UrlShortener\Support\Facades\UrlShortener;
 
 class UrlShortenerServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,8 @@ class UrlShortenerServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/url-shortener.php', 'url-shortener');
         $this->publishAssets();
         $this->registerMacros();
+
+        UrlShortener::shortenUsing('bit_ly', 'https://google.com');
     }
 
     /**
@@ -70,6 +73,14 @@ class UrlShortenerServiceProvider extends ServiceProvider
 
         UrlGenerator::macro('shortenAsync', function (...$parameters) {
             return app('url.shortener')->shortenAsync(...$parameters);
+        });
+
+        UrlGenerator::macro('shortenUsing', function (string $driver, ...$parameters) {
+            return app('url.shortener')->shortenUsing($driver, ...$parameters);
+        });
+
+        UrlGenerator::macro('shortenAsyncUsing', function (string $driver, ...$parameters) {
+            return app('url.shortener')->shortenAsyncUsing($driver, ...$parameters);
         });
 
         UrlGenerator::macro('shortener', function () {

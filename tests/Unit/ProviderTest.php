@@ -40,6 +40,8 @@ class ProviderTest extends TestCase
 
         $this->assertTrue(UrlGenerator::hasMacro('shorten'));
         $this->assertTrue(UrlGenerator::hasMacro('shortenAsync'));
+        $this->assertTrue(UrlGenerator::hasMacro('shortenUsing'));
+        $this->assertTrue(UrlGenerator::hasMacro('shortenAsyncUsing'));
         $this->assertTrue(UrlGenerator::hasMacro('shortener'));
     }
 }

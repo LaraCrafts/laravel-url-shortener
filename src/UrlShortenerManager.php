@@ -20,6 +20,34 @@ use LaraCrafts\UrlShortener\Http\TinyUrlShortener;
 class UrlShortenerManager extends Manager implements Factory
 {
     /**
+     * Shorten the given URL using the given driver.
+     *
+     * @param string $driver
+     * @param string $url
+     * @param array $options
+     *
+     * @return string
+     */
+    public function shortenUsing(string $driver, string $url, array $options = [])
+    {
+        return $this->createDriver($driver)->shorten($url, $options);
+    }
+
+    /**
+     * Shorten the given URL asynchronously using the given driver.
+     *
+     * @param string $driver
+     * @param string $url
+     * @param array $options
+     *
+     * @return \GuzzleHttp\Promise\PromisorInterface
+     */
+    public function shortenAsyncUsing(string $driver, string $url, array $options = [])
+    {
+        return $this->createDriver($driver)->shortenAsync($url, $options);
+    }
+
+    /**
      * Create an instance of the Bit.ly driver.
      *
      * @return \LaraCrafts\UrlShortener\Http\BitLyShortener
