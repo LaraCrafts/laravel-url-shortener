@@ -30,11 +30,23 @@ trait HasUrlAssertions
         static::assertThat($actual, static::isValidUrl());
     }
 
+    /**
+     * Create a IsValidUrl instance
+     *
+     * @return IsValidUrl
+     */
     public static function isValidUrl(): IsValidUrl
     {
         return new IsValidUrl;
     }
 
+    /**
+     * Create a RedirectsTo instance
+     *
+     * @param $expected
+     * @param int $redirects
+     * @return RedirectsTo
+     */
     public static function redirectsTo($expected, int $redirects = 1): RedirectsTo
     {
         return new RedirectsTo($expected, $redirects);
