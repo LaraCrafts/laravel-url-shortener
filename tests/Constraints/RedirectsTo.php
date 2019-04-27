@@ -29,7 +29,7 @@ class RedirectsTo extends Constraint
     /**
      * {@inheritDoc}
      */
-    public function evaluate($other, string $description = '', bool $returnResult = false)
+    public function evaluate($other, $description = '', $returnResult = false)
     {
         $stack = [];
 
@@ -64,6 +64,6 @@ class RedirectsTo extends Constraint
      */
     public function toString(): string
     {
-        return 'redirects to ' . (string)$this->destination;
+        return 'redirects to ' . $this->destination;
     }
 }

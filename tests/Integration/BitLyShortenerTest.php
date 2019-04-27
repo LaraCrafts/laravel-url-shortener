@@ -5,13 +5,12 @@ namespace LaraCrafts\UrlShortener\Tests\Integration;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use LaraCrafts\UrlShortener\Http\BitLyShortener;
-use LaraCrafts\UrlShortener\Tests\Concerns\FollowsRedirects;
-use LaraCrafts\UrlShortener\Tests\Constraint\IsValidUrl;
+use LaraCrafts\UrlShortener\Tests\Concerns\CustomAssertions;
 use Orchestra\Testbench\TestCase;
 
 class BitLyShortenerTest extends TestCase
 {
-    use FollowsRedirects;
+    use CustomAssertions;
 
     /**
      * @var \LaraCrafts\UrlShortener\Http\BitLyShortener
@@ -40,8 +39,8 @@ class BitLyShortenerTest extends TestCase
     public function testShorten()
     {
         $shortUrl = $this->shortener->shorten('https://google.com');
-        $this->assertInternalType('string', $shortUrl);
-        $this->assertThat($shortUrl, new IsValidUrl());
+
+        $this->assertValidUrl($shortUrl);
         $this->assertRedirectsTo('https://google.com', $shortUrl, 1);
     }
 
@@ -55,9 +54,7 @@ class BitLyShortenerTest extends TestCase
         $promise = $this->shortener->shortenAsync('https://google.com');
 
         $this->assertInstanceOf(PromiseInterface::class, $promise);
-        $shortUrl = $promise->wait();
-        $this->assertInternalType('string', $shortUrl);
-        $this->assertThat($shortUrl, new IsValidUrl());
+        $this->assertValidUrl($shortUrl = $promise->wait());
         $this->assertRedirectsTo('https://google.com', $shortUrl, 1);
     }
 }
