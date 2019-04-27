@@ -8,6 +8,7 @@ use Illuminate\Support\Manager;
 use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Contracts\Factory;
 use LaraCrafts\UrlShortener\Http\BitLyShortener;
+use LaraCrafts\UrlShortener\Http\FirebaseShortener;
 use LaraCrafts\UrlShortener\Http\IsGdShortener;
 use LaraCrafts\UrlShortener\Http\OuoIoShortener;
 use LaraCrafts\UrlShortener\Http\ShorteStShortener;
@@ -46,6 +47,24 @@ class UrlShortenerManager extends Manager implements Factory
         }
 
         return parent::createDriver($driver);
+    }
+
+    /**
+     * Create an instance of the Firebase driver.
+     *
+     * @return \LaraCrafts\UrlShortener\Http\FirebaseShortener
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function createFirebaseDriver()
+    {
+        $config = $this->getDriverConfig('firebase');
+
+        return new FirebaseShortener(
+            $this->app->make(ClientInterface::class),
+            Arr::get($config, 'token'),
+            Arr::get($config, 'prefix'),
+            Arr::get($config, 'suffix')
+        );
     }
 
     /**
