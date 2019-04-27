@@ -30,7 +30,7 @@ class UrlShortenerManager extends Manager implements Factory
      */
     public function shortenUsing(string $driver, string $url, array $options = [])
     {
-        return $this->createDriver($driver)->shorten($url, $options);
+        return $this->driver($driver)->shorten($url, $options);
     }
 
     /**
@@ -44,7 +44,7 @@ class UrlShortenerManager extends Manager implements Factory
      */
     public function shortenAsyncUsing(string $driver, string $url, array $options = [])
     {
-        return $this->createDriver($driver)->shortenAsync($url, $options);
+        return $this->driver($driver)->shortenAsync($url, $options);
     }
 
     /**
