@@ -139,14 +139,15 @@ adding it to the package via a pull request.
 ## Available drivers
 Below is a list of available drivers along with their individual specs:
 
-Service                | Driver name | Since version | Analytics | Monetization
------------------------|-------------|---------------|-----------|-----------------
-[Bit.ly](#bitly)       | `bit_ly`    | 0.1.0         | yes       | no
-[Is.gd](#isgd--vgd)    | `is_gd`     | 0.2.0         | yes       | no
-[Ouo.io](#ouoio)       | `ouo_io`    | 0.2.0         | yes       | yes
-[Shorte.st](#shortest) | `shorte_st` | 0.1.0         | yes       | yes
-[TinyURL](#tinyurl)    | `tiny_url`  | 0.1.0         | no        | no
-[V.gd](#isgd--vgd)     | `is_gd`     | 0.2.0         | yes       | no
+Service                                           | Driver name | Since version | Analytics | Monetization
+--------------------------------------------------|-------------|---------------|-----------|-----------------
+[Bit.ly](#bitly)                                  | `bit_ly`    | 0.1.0         | yes       | no
+[Firebase Dynamic Links](#firebase-dynamic-links) | `firebase`  | 0.2.0         | yes       | no
+[Is.gd](#isgd--vgd)                               | `is_gd`     | 0.2.0         | yes       | no
+[Ouo.io](#ouoio)                                  | `ouo_io`    | 0.2.0         | yes       | yes
+[Shorte.st](#shortest)                            | `shorte_st` | 0.1.0         | yes       | yes
+[TinyURL](#tinyurl)                               | `tiny_url`  | 0.1.0         | no        | no
+[V.gd](#isgd--vgd)                                | `is_gd`     | 0.2.0         | yes       | no
 
 ### Bit.ly
 [website](https://bit.ly)
@@ -168,6 +169,9 @@ information on you firebase console. The token accessible under the project sett
 can be defined and accessed under the Dynamic Links menu. 
 
 The suffix can have the value `SHORT` or `UNGUESSABLE`.
+
+> **IMPORTANT!** Links created via the API are not visible in the Firebase console. They are only accessible via
+> the [Analytics REST API](https://firebase.google.com/docs/reference/dynamic-links/analytics).
 
 Variable              | Description                        | Default
 ----------------------|------------------------------------|---------------
