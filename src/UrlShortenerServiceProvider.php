@@ -21,8 +21,6 @@ class UrlShortenerServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/url-shortener.php', 'url-shortener');
         $this->publishAssets();
         $this->registerMacros();
-
-        UrlShortener::shortenUsing('bit_ly', 'https://google.com');
     }
 
     /**
