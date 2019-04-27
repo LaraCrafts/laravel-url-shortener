@@ -5,12 +5,12 @@ namespace LaraCrafts\UrlShortener\Tests\Integration;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use LaraCrafts\UrlShortener\Http\IsGdShortener;
-use LaraCrafts\UrlShortener\Tests\Concerns\FollowsRedirects;
+use LaraCrafts\UrlShortener\Tests\Concerns\HasUrlAssertions;
 use Orchestra\Testbench\TestCase;
 
 class IsGdShortenerTest extends TestCase
 {
-    use FollowsRedirects;
+    use HasUrlAssertions;
 
     /**
      * @var \LaraCrafts\UrlShortener\Http\IsGdShortener
@@ -34,6 +34,8 @@ class IsGdShortenerTest extends TestCase
     public function testShorten()
     {
         $shortUrl = $this->shortener->shorten('https://google.com');
+
+        $this->assertValidUrl($shortUrl);
         $this->assertRedirectsTo('https://google.com', $shortUrl, 1);
     }
 
@@ -45,7 +47,9 @@ class IsGdShortenerTest extends TestCase
     public function testShortenAsync()
     {
         $promise = $this->shortener->shortenAsync('https://google.com');
+
         $this->assertInstanceOf(PromiseInterface::class, $promise);
-        $this->assertRedirectsTo('https://google.com', $promise->wait(), 1);
+        $this->assertValidUrl($shortUrl = $promise->wait());
+        $this->assertRedirectsTo('https://google.com', $shortUrl, 1);
     }
 }
