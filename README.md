@@ -15,7 +15,8 @@ Powerful URL shortening tools in Laravel
     - [Laravel 5.1-5.4](#laravel-51-54)
     - [Lumen](#lumen)
 - [Usage](#usage)
-    - [Changing the default driver](#changing-the-default-driver)
+    - [Changing the driver](#changing-the-driver)
+    - [Adding your own drivers](#adding-your-own-drivers)
 - [Available drivers](#available-drivers)
     - [Bit.ly](#bitly)
     - [Firebase Dynamic Links](#firebase-dynamic-links)
@@ -112,10 +113,28 @@ Method         | Description
 `shorten`      | Shorten the given URL
 `shortenAsync` | Shorten the given URL asynchronously
 `driver`       | Retrieve a driver (e.g. `tiny_url`)
+`extend`       | Register your own driver
 
-### Changing the default driver
+### Changing the driver
 You can change the default driver by setting `URL_SHORTENER_DRIVER={driver}` in your environment file or publishing the
 config file and changing it directly.
+
+### Adding your own drivers
+Much like Laravels [core components](https://laravel.com/docs/5.0/extending#managers-and-factories), you can add your
+own drivers for this package. You can do this by adding the following code to a central place in your application
+(preferably a service provider).
+
+```php
+UrlShortener::extend('my_driver', function () {
+    return new MyCustomUrlShortener();
+});
+```
+
+If you are adding a web hosted shortener service you may want to extend the `RemoteShortener` abstract class, for which
+you can use the shipped drivers (e.g. `TinyUrlShortener`) as an example as to how.
+
+If you wrote a custom driver that others might find useful (such as a public online shortener service), please consider
+adding it to the package via a pull request.
 
 ## Available drivers
 Below is a list of available drivers along with their individual specs:
@@ -171,7 +190,7 @@ Variable              | Description
 [website](https://ouo.io)
 
 This driver uses the Ouo.io API and requires an access token. The API allows for URL monetization via advertisements and
-provides analytics via it's dashboard.
+provides analytics via its dashboard.
 
 Variable           | Description 
 -------------------|----------------------
@@ -181,7 +200,7 @@ Variable           | Description
 [website](https://shorte.st)
 
 This driver uses the Shorte.st API, which requires an access token. This API supports monetization of your URLs and can
-give you insight into your traffic via it's dashboard.
+give you insight into your traffic via its dashboard.
 
 Variable              | Description
 ----------------------|-------------------------
