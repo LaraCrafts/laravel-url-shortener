@@ -6,7 +6,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use LaraCrafts\UrlShortener\Http\ShorteStShortener;
 use LaraCrafts\UrlShortener\Tests\Concerns\HasUrlAssertions;
-use LaraCrafts\UrlShortener\Tests\Constraints\IsValidUrl;
 use Orchestra\Testbench\TestCase;
 
 class ShorteStShortenerTest extends TestCase
@@ -42,7 +41,6 @@ class ShorteStShortenerTest extends TestCase
         $shortUrl = $this->shortener->shorten('https://google.com');
 
         $this->assertValidUrl($shortUrl);
-        $this->assertThat($shortUrl, new IsValidUrl());
     }
 
     /**
@@ -56,6 +54,5 @@ class ShorteStShortenerTest extends TestCase
 
         $this->assertInstanceOf(PromiseInterface::class, $promise);
         $this->assertValidUrl($shortUrl = $promise->wait());
-        $this->assertThat($shortUrl, new IsValidUrl());
     }
 }
