@@ -3,8 +3,8 @@
 namespace LaraCrafts\UrlShortener\Console\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class ShortenCommand extends Command
 {

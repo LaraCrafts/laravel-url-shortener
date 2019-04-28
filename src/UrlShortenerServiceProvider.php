@@ -87,7 +87,7 @@ class UrlShortenerServiceProvider extends ServiceProvider
     protected function registerArtisanCommands()
     {
         $this->commands([
-            Console\Commands\ShortenCommand::class
+            Console\Commands\ShortenCommand::class,
         ]);
     }
 }
