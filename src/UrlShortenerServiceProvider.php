@@ -51,6 +51,8 @@ class UrlShortenerServiceProvider extends ServiceProvider
         $this->app->singleton('url.shortener', function ($app) {
             return new UrlShortenerManager($app);
         });
+
+        $this->registerArtisanCommands();
     }
 
     /**
@@ -75,5 +77,17 @@ class UrlShortenerServiceProvider extends ServiceProvider
         UrlGenerator::macro('shortener', function () {
             return app('url.shortener');
         });
+    }
+
+    /**
+     * Register the customer Artisan commands.
+     *
+     * @return void
+     */
+    protected function registerArtisanCommands()
+    {
+        $this->commands([
+            Console\Commands\ShortenCommand::class
+        ]);
     }
 }
