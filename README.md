@@ -17,6 +17,7 @@ Powerful URL shortening tools in Laravel
 - [Usage](#usage)
     - [Changing the driver](#changing-the-driver)
     - [Adding your own drivers](#adding-your-own-drivers)
+    - [Usage in CLI](#usage-in-cli)
 - [Available drivers](#available-drivers)
     - [Bit.ly](#bitly)
     - [Firebase Dynamic Links](#firebase-dynamic-links)
@@ -135,6 +136,24 @@ you can use the shipped drivers (e.g. `TinyUrlShortener`) as an example as to ho
 
 If you wrote a custom driver that others might find useful (such as a public online shortener service), please consider
 adding it to the package via a pull request.
+
+### Usage in CLI
+
+
+The _URL Shortener_ package also introduces the `shorten` artisan command, this command will allow you to easily shorten URLs via the command line.
+
+**Usage:** 
+```bash
+php artisan shorten {url} --driver={driver}
+```
+
+This example will result in the following output:
+```bash
+URL shortened successfully.
+Your short URL is: https://driver.com/sh0rT
+```
+
+> Note: If the driver option is not present, the default driver will be used.
 
 ## Available drivers
 Below is a list of available drivers along with their individual specs:
