@@ -3,8 +3,7 @@
 namespace LaraCrafts\UrlShortener\Console\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
+use LaraCrafts\UrlShortener\UrlShortenerManager;
 
 class ShortenCommand extends Command
 {
@@ -13,7 +12,9 @@ class ShortenCommand extends Command
      *
      * @var string
      */
-    protected $name = 'shorten';
+    protected $signature = 'url:shorten
+                            {url? : The URL to shorten}
+                            {--D|driver= : The driver to use to shorten the URL.}';
 
     /**
      * The console command description.
@@ -23,37 +24,42 @@ class ShortenCommand extends Command
     protected $description = 'Shorten a given URL';
 
     /**
+     * The URL Shortener instance.
+     *
+     * @var \LaraCrafts\UrlShortener\UrlShortenerManager
+     */
+    protected $shortener;
+
+    /**
+     * Create a new ShortenCommand instance.
+     *
+     * @param \LaraCrafts\UrlShortener\UrlShortenerManager $shortener
+     */
+    public function __construct(UrlShortenerManager $shortener)
+    {
+        parent::__construct();
+
+        $this->shortener = $shortener;
+    }
+
+    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle()
     {
-        $driver = $this->laravel['url.shortener']->driver($this->input->getOption('driver'));
+        $url = $this->argument('url') ?? $this->ask('Please enter the URL to shorten');
 
-        $shortUrl = $driver->shorten($this->input->getArgument('url'));
+        if (!$url) {
+            return $this->error('Aborted: No URL was given.');
+        }
+
+        $driver = $this->shortener->driver($this->option('driver'));
+
+        $shortUrl = $driver->shorten($url);
 
         $this->info('URL shortened successfully.');
         $this->info("Your short URL is: $shortUrl");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getArguments()
-    {
-        return [
-            ['url', InputArgument::REQUIRED, 'The URL to shorten'],
-        ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getOptions()
-    {
-        return [
-            ['driver', 'D', InputOption::VALUE_REQUIRED, 'The driver to use for shortening the given URL'],
-        ];
     }
 }
