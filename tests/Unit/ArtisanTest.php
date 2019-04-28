@@ -2,10 +2,10 @@
 
 namespace LaraCrafts\UrlShortener\Tests\Unit;
 
+use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Console\Commands\ShortenCommand;
 use LaraCrafts\UrlShortener\UrlShortenerManager;
 use Orchestra\Testbench\TestCase;
-use Illuminate\Support\Str;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class ArtisanTest extends TestCase
@@ -16,7 +16,7 @@ class ArtisanTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -72,11 +72,11 @@ class ArtisanTest extends TestCase
             ->andReturn($shortUrl);
 
         $commandTester->setInputs([
-            $url
+            $url,
         ]);
 
         $commandTester->execute([
-            '--driver' => $driver
+            '--driver' => $driver,
         ]);
         $this->assertRegExp("/Your short URL is: $shortUrl/", $commandTester->getDisplay());
     }
