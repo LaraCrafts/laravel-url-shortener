@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.2.0](https://github.com/LaraCrafts/laravel-url-shortener/releases/tag/v0.2.0) (TBD)
+## [v0.2.0](https://github.com/LaraCrafts/laravel-url-shortener/releases/tag/v0.2.0) (2019-04-27)
 - Added `UrlShortener` facade
 - Added Is.gd driver
 - Added V.gd driver
