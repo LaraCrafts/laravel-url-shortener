@@ -79,7 +79,7 @@ class UrlShortenerManager extends Manager implements Factory
 
         return new IsGdShortener(
             $this->app->make(ClientInterface::class),
-            Arr::get($config, 'link_previews'),
+            Arr::get($config, 'base_uri'),
             Arr::get($config, 'statistics')
         );
     }
@@ -143,6 +143,6 @@ class UrlShortenerManager extends Manager implements Factory
      */
     protected function getDriverConfig(string $name)
     {
-        return $this->app['config']["url-shortener.drivers.$name"] ?: [];
+        return $this->app['config']["url-shortener.shorteners.$name"] ?: [];
     }
 }

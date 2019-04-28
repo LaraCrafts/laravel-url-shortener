@@ -24,7 +24,7 @@ class VGdShortenerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->shortener = new IsGdShortener(new Client, true, false);
+        $this->shortener = new IsGdShortener(new Client, 'https://v.gd', false);
     }
 
     /**

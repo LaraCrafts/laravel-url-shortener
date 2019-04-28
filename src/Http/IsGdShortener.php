@@ -16,16 +16,16 @@ class IsGdShortener extends RemoteShortener
      * Create a new Is.gd shortener.
      *
      * @param \GuzzleHttp\ClientInterface $client
-     * @param bool $linkPreviews
+     * @param \Psr\Http\Message\UriInterface|string $baseUri
      * @param bool $statistics
      * @return void
      */
-    public function __construct(ClientInterface $client, bool $linkPreviews, bool $statistics)
+    public function __construct(ClientInterface $client, $baseUri, bool $statistics)
     {
         $this->client = $client;
         $this->defaults = [
             'allow_redirects' => false,
-            'base_uri' => $linkPreviews ? 'https://v.gd' : 'https://is.gd',
+            'base_uri' => (string)$baseUri,
             'query' => [
                 'format' => 'simple',
                 'logstats' => intval($statistics),

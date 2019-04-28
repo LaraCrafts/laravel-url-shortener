@@ -23,7 +23,7 @@ class IsGdShortenerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->shortener = new IsGdShortener(new Client, false, false);
+        $this->shortener = new IsGdShortener(new Client, 'https://is.gd', false);
     }
 
     /**

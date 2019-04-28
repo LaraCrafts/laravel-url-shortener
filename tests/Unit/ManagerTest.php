@@ -47,11 +47,11 @@ class ManagerTest extends TestCase
         parent::setUp();
 
         $this->app['config']['url-shortener'] = require __DIR__ . '/../../config/url-shortener.php';
-        $this->app['config']['url-shortener.drivers.bit_ly.token'] = Str::random(32);
-        $this->app['config']['url-shortener.drivers.firebase.token'] = Str::random(32);
-        $this->app['config']['url-shortener.drivers.firebase.prefix'] = Str::random(32) . '.com';
-        $this->app['config']['url-shortener.drivers.ouo_io.token'] = Str::random(32);
-        $this->app['config']['url-shortener.drivers.shorte_st.token'] = Str::random(32);
+        $this->app['config']['url-shortener.shorteners.bit_ly.token'] = Str::random(32);
+        $this->app['config']['url-shortener.shorteners.firebase.token'] = Str::random(32);
+        $this->app['config']['url-shortener.shorteners.firebase.prefix'] = Str::random(32) . '.com';
+        $this->app['config']['url-shortener.shorteners.ouo_io.token'] = Str::random(32);
+        $this->app['config']['url-shortener.shorteners.shorte_st.token'] = Str::random(32);
 
         $this->app->bind(ClientInterface::class, Client::class);
         $this->manager = new UrlShortenerManager($this->app);
