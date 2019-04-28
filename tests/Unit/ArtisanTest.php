@@ -5,14 +5,11 @@ namespace LaraCrafts\UrlShortener\Tests\Unit;
 use LaraCrafts\UrlShortener\Console\Commands\ShortenCommand;
 use LaraCrafts\UrlShortener\UrlShortenerManager;
 use Orchestra\Testbench\TestCase;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
+use Illuminate\Support\Str;
+use Symfony\Component\Console\Tester\CommandTester;
 
 class ArtisanTest extends TestCase
 {
-    /** @var \Symfony\Component\Console\Output\BufferedOutput */
-    protected $output;
-
     /** @var \Mockery\MockInterface */
     protected $shortener;
 
@@ -23,20 +20,16 @@ class ArtisanTest extends TestCase
     {
         parent::setUp();
 
-        $this->output = new BufferedOutput();
         $this->shortener = \Mockery::mock(UrlShortenerManager::class);
-        $this->app['url.shortener'] = $this->shortener;
     }
 
-    public function testShortenCommand()
+    public function testIfShortenShortensGivenUrl()
     {
-        $command = new ShortenCommand();
+        $commandTest = new CommandTester($this->shortenCommand());
 
-        $command->setLaravel($this->app);
-
-        $url = str_random(20);
+        $url = Str::random(20);
         $shortUrl = substr($url, 0, 10);
-        $driver = str_random(5);
+        $driver = Str::random(5);
 
         $this->shortener
             ->shouldReceive('driver')
@@ -50,11 +43,65 @@ class ArtisanTest extends TestCase
             ->with($url)
             ->andReturn($shortUrl);
 
-        $command->run(new ArrayInput([
+        $commandTest->execute([
             'url' => $url,
             '--driver' => $driver,
-        ]), $this->output);
+        ]);
 
-        $this->assertRegExp("/Your short URL is: $shortUrl/", $this->output->fetch());
+        $this->assertRegExp("/Your short URL is: $shortUrl/", $commandTest->getDisplay());
+    }
+
+    public function testIfShortenUsesUrlFromInput()
+    {
+        $commandTester = new CommandTester($this->shortenCommand());
+
+        $url = Str::random(20);
+        $shortUrl = substr($url, 0, 10);
+        $driver = Str::random(5);
+
+        $this->shortener
+            ->shouldReceive('driver')
+            ->once()
+            ->with($driver)
+            ->andReturn($this->shortener);
+
+        $this->shortener
+            ->shouldReceive('shorten')
+            ->once()
+            ->with($url)
+            ->andReturn($shortUrl);
+
+        $commandTester->setInputs([
+            $url
+        ]);
+
+        $commandTester->execute([
+            '--driver' => $driver
+        ]);
+        $this->assertRegExp("/Your short URL is: $shortUrl/", $commandTester->getDisplay());
+    }
+
+    public function testIfShortenFailsIfNoUrlInput()
+    {
+        $commandTester = new CommandTester($this->shortenCommand());
+
+        $this->expectException(\Symfony\Component\Console\Exception\RuntimeException::class);
+
+        $this->shortener
+            ->shouldNotReceive('driver');
+
+        $this->shortener
+            ->shouldNotReceive('shorten');
+
+        $commandTester->execute([]);
+    }
+
+    protected function shortenCommand()
+    {
+        $command = new ShortenCommand($this->shortener);
+
+        $command->setLaravel($this->app);
+
+        return $command;
     }
 }
