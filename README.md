@@ -125,13 +125,12 @@ own drivers for this package. You can do this by adding the following code to a 
 (preferably a service provider).
 
 ```php
-UrlShortener::extend('my_driver', function () {
-    return new MyCustomUrlShortener();
+UrlShortener::extend('my_driver', function ($app, $config) {
+    // Return your driver instance here
 });
 ```
 
-If you are adding a web hosted shortener service you may want to extend the `RemoteShortener` abstract class, for which
-you can use the shipped drivers (e.g. `TinyUrlShortener`) as an example as to how.
+Once you have registered your driver you can call it like any other driver.
 
 If you wrote a custom driver that others might find useful (such as a public online shortener service), please consider
 adding it to the package via a pull request.
