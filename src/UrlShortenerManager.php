@@ -2,6 +2,7 @@
 
 namespace LaraCrafts\UrlShortener;
 
+use Closure;
 use GuzzleHttp\ClientInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
@@ -144,6 +145,20 @@ class UrlShortenerManager implements FactoryContract
     public function driver(string $name = null)
     {
         return $this->shortener($name);
+    }
+
+    /**
+     * Register a custom driver creator closure.
+     *
+     * @param string $name
+     * @param \Closure $callback
+     * @return $this
+     */
+    public function extend(string $name, Closure $callback)
+    {
+        $this->customCreators[$name] = $callback->bindTo($this, $this);
+
+        return $this;
     }
 
     /**
