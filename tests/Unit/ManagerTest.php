@@ -4,6 +4,7 @@ namespace LaraCrafts\UrlShortener\Tests\Unit;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Http\BitLyShortener;
 use LaraCrafts\UrlShortener\Http\FirebaseShortener;
@@ -22,7 +23,7 @@ class ManagerTest extends TestCase
     protected $manager;
 
     /**
-     * Provider driver data.
+     * Provide driver data set.
      *
      * @return array
      */
@@ -36,6 +37,7 @@ class ManagerTest extends TestCase
             'Ouo.io' => ['ouo_io', OuoIoShortener::class],
             'Shorte.st' => ['shorte_st', ShorteStShortener::class],
             'TinyURL' => ['tiny_url', TinyUrlShortener::class],
+            'V.gd' => ['v_gd', IsGdShortener::class],
         ];
     }
 
@@ -47,17 +49,42 @@ class ManagerTest extends TestCase
         parent::setUp();
 
         $this->app['config']['url-shortener'] = require __DIR__ . '/../../config/url-shortener.php';
-        $this->app['config']['url-shortener.drivers.bit_ly.token'] = Str::random(32);
-        $this->app['config']['url-shortener.drivers.firebase.token'] = Str::random(32);
-        $this->app['config']['url-shortener.drivers.firebase.prefix'] = Str::random(32) . '.com';
-        $this->app['config']['url-shortener.drivers.ouo_io.token'] = Str::random(32);
-        $this->app['config']['url-shortener.drivers.shorte_st.token'] = Str::random(32);
+        $this->app['config']['url-shortener.shorteners.bit_ly.token'] = Str::random(32);
+        $this->app['config']['url-shortener.shorteners.firebase.token'] = Str::random(32);
+        $this->app['config']['url-shortener.shorteners.firebase.prefix'] = Str::random(32) . '.com';
+        $this->app['config']['url-shortener.shorteners.ouo_io.token'] = Str::random(32);
+        $this->app['config']['url-shortener.shorteners.shorte_st.token'] = Str::random(32);
 
         $this->app->bind(ClientInterface::class, Client::class);
         $this->manager = new UrlShortenerManager($this->app);
     }
 
     /**
+     * Test custom driver creation.
+     *
+     * @return void
+     */
+    public function testCustomDriverCreation()
+    {
+        $reference = $this->app->make('stdClass');
+        $testSuite = $this;
+
+        $this->app['config']['url-shortener.shorteners.phpunit'] = ['driver' => 'phpunit'];
+
+        $this->manager->extend('phpunit', function ($app, $config) use ($reference, $testSuite) {
+            $testSuite->assertInstanceOf(Application::class, $app);
+            $testSuite->assertInstanceOf(UrlShortenerManager::class, $this);
+            $testSuite->assertEquals(['driver' => 'phpunit'], $config);
+
+            return $reference;
+        });
+
+        $this->assertSame($reference, $this->manager->driver('phpunit'));
+    }
+
+    /**
+     * Test driver creation.
+     *
      * @param string|null $driver
      * @param string $expected
      * @return void
@@ -65,6 +92,20 @@ class ManagerTest extends TestCase
      */
     public function testDriverCreation(?string $driver, string $expected)
     {
-        $this->assertInstanceOf($expected, $this->manager->driver($driver));
+        $this->assertInstanceOf($expected, $this->manager->shortener($driver));
+    }
+
+    /**
+     * Test the changing of the default driver.
+     *
+     * @return void
+     */
+    public function testDefaultDriver()
+    {
+        $expected = Str::random(32);
+
+        $this->assertNotEquals($expected, $this->manager->getDefaultDriver());
+        $this->manager->setDefaultDriver($expected);
+        $this->assertEquals($expected, $this->manager->getDefaultDriver());
     }
 }

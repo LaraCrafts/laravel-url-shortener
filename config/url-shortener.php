@@ -4,34 +4,45 @@ return [
 
     'default' => env('URL_SHORTENER_DRIVER', 'tiny_url'),
 
-    'drivers' => [
+    'shorteners' => [
 
         'bit_ly' => [
-            'domain' => env('BIT_LY_DOMAIN', 'bit.ly'),
-            'token' => env('BIT_LY_API_TOKEN'),
+            'driver' => 'bit_ly',
+            'domain' => env('URL_SHORTENER_PREFIX', 'bit.ly'),
+            'token' => env('URL_SHORTENER_API_TOKEN'),
         ],
 
         'firebase' => [
-            'prefix' => env('FIREBASE_URI_PREFIX'),
-            'token' => env('FIREBASE_API_TOKEN'),
-            'suffix' => env('FIREBASE_SUFFIX', 'UNGUESSABLE'),
+            'driver' => 'firebase',
+            'prefix' => env('URL_SHORTENER_PREFIX'),
+            'token' => env('URL_SHORTENER_API_TOKEN'),
+            'suffix' => env('URL_SHORTENER_STRATEGY', 'UNGUESSABLE'),
         ],
 
         'is_gd' => [
-            'link_previews' => env('IS_GD_LINK_PREVIEWS', false),
-            'statistics' => env('IS_GD_STATISTICS', false),
+            'driver' => 'is_gd',
+            'base_uri' => 'https://is.gd',
+            'statistics' => env('URL_SHORTENER_ANALYTICS', false),
         ],
 
         'ouo_io' => [
-            'token' => env('OUO_IO_API_TOKEN'),
+            'driver' => 'ouo_io',
+            'token' => env('URL_SHORTENER_API_TOKEN'),
         ],
 
         'shorte_st' => [
-            'token' => env('SHORTE_ST_API_TOKEN'),
+            'driver' => 'shorte_st',
+            'token' => env('URL_SHORTENER_API_TOKEN'),
         ],
 
         'tiny_url' => [
-            //
+            'driver' => 'tiny_url',
+        ],
+
+        'v_gd' => [
+            'driver' => 'is_gd',
+            'base_uri' => 'https://v.gd',
+            'statistics' => env('URL_SHORTENER_ANALYTICS', false),
         ],
     ],
 ];

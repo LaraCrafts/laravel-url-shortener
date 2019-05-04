@@ -7,8 +7,8 @@ interface Factory
     /**
      * Get a shortener instance.
      *
-     * @param string|null $driver
+     * @param string|null $name
      * @return \LaraCrafts\UrlShortener\Contracts\Shortener
      */
-    public function driver($driver = null);
+    public function shortener(string $name = null);
 }
