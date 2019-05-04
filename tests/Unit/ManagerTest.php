@@ -74,7 +74,6 @@ class ManagerTest extends TestCase
         $this->manager->extend('phpunit', function ($app, $config) use ($reference, $testSuite) {
             $testSuite->assertInstanceOf(Application::class, $app);
             $testSuite->assertInstanceOf(UrlShortenerManager::class, $this);
-            $testSuite->assertIsArray($config);
             $testSuite->assertEquals(['driver' => 'phpunit'], $config);
 
             return $reference;
