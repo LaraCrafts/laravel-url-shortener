@@ -23,15 +23,20 @@ dist: xenial
 sudo: false
 
 before_install:
-  - composer require illuminate/support:"${ILLUMINATE_VERSION}" --no-update
-  - composer require orchestra/testbench:"${TESTBENCH_VERSION}" --no-update
-  - composer require phpunit/phpunit:"${PHPUNIT_VERSION}" --no-update
+  - composer require illuminate/support:${ILLUMINATE_VERSION} --no-update
+  - composer require orchestra/testbench:${TESTBENCH_VERSION} --dev --no-update
+  - composer require phpunit/phpunit:"${PHPUNIT_VERSION}" --dev --no-update
 
 install:
   - composer install --no-interaction --no-progress --no-suggest --prefer-dist
 
 script:
-  - ./vendor/bin/phpunit --coverage-clover=coverage.clover --verbose
+  - |
+    if [ $TRAVIS_BRANCH == 'master' ]; then
+        ./vendor/bin/phpunit --coverage-clover=coverage.clover --verbose
+    else
+        ./vendor/bin/phpunit --coverage-clover=coverage.clover --testsuite=Unit --verbose
+    fi
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
