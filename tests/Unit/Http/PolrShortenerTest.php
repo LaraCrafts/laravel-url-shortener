@@ -36,7 +36,7 @@ class PolrShortenerTest extends TestCase
         $this->history = [];
 
         $handler = new MockHandler([
-            new Response(200, [], '{"action": "shorten","result": "https://example.com/5kq"}')
+            new Response(200, [], '{"action": "shorten","result": "https://example.com/5kq"}'),
         ]);
 
         $stack = HandlerStack::create($handler);
