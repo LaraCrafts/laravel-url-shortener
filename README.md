@@ -22,6 +22,7 @@ Powerful URL shortening tools in Laravel
     - [Firebase Dynamic Links](#firebase-dynamic-links)
     - [Is.gd](#isgd--vgd)
     - [Ouo.io](#ouoio)
+    - [Polr](#polr)
     - [Shorte.st](#shortest)
     - [TinyURL](#tinyurl)
     - [V.gd](#isgd--vgd)
@@ -144,6 +145,7 @@ Service                                           | Driver name | Since version 
 [Firebase Dynamic Links](#firebase-dynamic-links) | `firebase`  | 0.2.0         | yes       | no
 [Is.gd](#isgd--vgd)                               | `is_gd`     | 0.2.0         | yes       | no
 [Ouo.io](#ouoio)                                  | `ouo_io`    | 0.2.0         | yes       | yes
+[Polr](#polr)                                     | `polr`      | 0.3.0         | yes       | no
 [Shorte.st](#shortest)                            | `shorte_st` | 0.1.0         | yes       | yes
 [TinyURL](#tinyurl)                               | `tiny_url`  | 0.1.0         | no        | no
 [V.gd](#isgd--vgd)                                | `is_gd`     | 0.2.0         | yes       | no
@@ -198,6 +200,16 @@ provides analytics via its dashboard.
 Variable           | Description 
 -------------------|----------------------
 `OUO_IO_API_TOKEN` | Your Ouo.io API token
+
+### Polr
+[website](https://github.com/cydrobolt/polr/)
+
+This driver uses the Polr API. The API requires an access token and a URI prefix.
+
+Variable                  | Description
+--------------------------|-------------------------
+`URL_SHORTENER_API_TOKEN` | Your Firebase API token
+`URL_SHORTENER_PREFIX`    | Your URL prefix
 
 ### Shorte.st
 [website](https://shorte.st)

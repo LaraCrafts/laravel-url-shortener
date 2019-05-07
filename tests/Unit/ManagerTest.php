@@ -10,6 +10,7 @@ use LaraCrafts\UrlShortener\Http\BitLyShortener;
 use LaraCrafts\UrlShortener\Http\FirebaseShortener;
 use LaraCrafts\UrlShortener\Http\IsGdShortener;
 use LaraCrafts\UrlShortener\Http\OuoIoShortener;
+use LaraCrafts\UrlShortener\Http\PolrShortener;
 use LaraCrafts\UrlShortener\Http\ShorteStShortener;
 use LaraCrafts\UrlShortener\Http\TinyUrlShortener;
 use LaraCrafts\UrlShortener\UrlShortenerManager;
@@ -35,6 +36,7 @@ class ManagerTest extends TestCase
             'Firebase' => ['firebase', FirebaseShortener::class],
             'Is.gd' => ['is_gd', IsGdShortener::class],
             'Ouo.io' => ['ouo_io', OuoIoShortener::class],
+            'Polr' => ['polr', PolrShortener::class],
             'Shorte.st' => ['shorte_st', ShorteStShortener::class],
             'TinyURL' => ['tiny_url', TinyUrlShortener::class],
             'V.gd' => ['v_gd', IsGdShortener::class],
@@ -53,6 +55,8 @@ class ManagerTest extends TestCase
         $this->app['config']['url-shortener.shorteners.firebase.token'] = Str::random(32);
         $this->app['config']['url-shortener.shorteners.firebase.prefix'] = Str::random(32) . '.com';
         $this->app['config']['url-shortener.shorteners.ouo_io.token'] = Str::random(32);
+        $this->app['config']['url-shortener.shorteners.polr.token'] = Str::random(32);
+        $this->app['config']['url-shortener.shorteners.polr.prefix'] = 'http://example.com';
         $this->app['config']['url-shortener.shorteners.shorte_st.token'] = Str::random(32);
 
         $this->app->bind(ClientInterface::class, Client::class);
