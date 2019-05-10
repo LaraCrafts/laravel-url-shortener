@@ -208,7 +208,7 @@ This driver uses the Polr API. The API requires an access token and a URI prefix
 
 Variable                  | Description
 --------------------------|-------------------------
-`URL_SHORTENER_API_TOKEN` | Your Firebase API token
+`URL_SHORTENER_API_TOKEN` | Your Polr API token
 `URL_SHORTENER_PREFIX`    | Your URL prefix
 
 ### Shorte.st
