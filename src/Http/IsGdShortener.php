@@ -5,10 +5,13 @@ namespace LaraCrafts\UrlShortener\Http;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Arr;
+use LaraCrafts\UrlShortener\Contracts\CustomUrls as CustomUrlsContract;
 use Psr\Http\Message\ResponseInterface;
 
-class IsGdShortener extends RemoteShortener
+class IsGdShortener extends RemoteShortener implements CustomUrlsContract
 {
+    use Concerns\CustomUrls;
+
     protected $client;
     protected $defaults;
 
@@ -44,5 +47,13 @@ class IsGdShortener extends RemoteShortener
         return $this->client->sendAsync($request, $options)->then(function (ResponseInterface $response) {
             return $response->getBody()->getContents();
         });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function shortenToAsync($url, string $identifier, array $options = [])
+    {
+        return $this->shortenAsync($url, Arr::add($options, 'query.shorturl', $identifier));
     }
 }
