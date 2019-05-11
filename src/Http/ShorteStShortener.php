@@ -38,7 +38,7 @@ class ShorteStShortener extends RemoteShortener
      */
     public function shortenAsync($url, array $options = [])
     {
-        $options = array_merge($this->defaults, $options);
+        $options = array_merge_recursive($this->defaults, $options);
         $request = new Request('PUT', '/v1/data/url', [], http_build_query(['urlToShorten' => $url]));
 
         return $this->client->sendAsync($request, $options)->then(function (ResponseInterface $response) {

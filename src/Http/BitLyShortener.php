@@ -43,7 +43,7 @@ class BitLyShortener extends RemoteShortener
      */
     public function shortenAsync($url, array $options = [])
     {
-        $options = array_merge(Arr::add($this->defaults, 'json.long_url', $url), $options);
+        $options = array_merge_recursive(Arr::add($this->defaults, 'json.long_url', $url), $options);
         $request = new Request('POST', '/v4/shorten');
 
         return $this->client->sendAsync($request, $options)->then(function (ResponseInterface $response) {
