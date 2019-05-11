@@ -30,6 +30,12 @@ return [
             'token' => env('URL_SHORTENER_API_TOKEN'),
         ],
 
+        'polr' => [
+            'driver' => 'polr',
+            'prefix' => env('URL_SHORTENER_PREFIX'),
+            'token' => env('URL_SHORTENER_API_TOKEN'),
+        ],
+
         'shorte_st' => [
             'driver' => 'shorte_st',
             'token' => env('URL_SHORTENER_API_TOKEN'),

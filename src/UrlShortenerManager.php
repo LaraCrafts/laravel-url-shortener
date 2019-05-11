@@ -13,6 +13,7 @@ use LaraCrafts\UrlShortener\Http\BitLyShortener;
 use LaraCrafts\UrlShortener\Http\FirebaseShortener;
 use LaraCrafts\UrlShortener\Http\IsGdShortener;
 use LaraCrafts\UrlShortener\Http\OuoIoShortener;
+use LaraCrafts\UrlShortener\Http\PolrShortener;
 use LaraCrafts\UrlShortener\Http\ShorteStShortener;
 use LaraCrafts\UrlShortener\Http\TinyUrlShortener;
 
@@ -107,6 +108,22 @@ class UrlShortenerManager implements FactoryContract
         return new OuoIoShortener(
             $this->app->make(ClientInterface::class),
             Arr::get($config, 'token')
+        );
+    }
+
+    /**
+     * Create an instance of the Polr driver.
+     *
+     * @param array $config
+     * @return \LaraCrafts\UrlShortener\Http\PolrShortener
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function createPolrDriver(array $config)
+    {
+        return new PolrShortener(
+            $this->app->make(ClientInterface::class),
+            Arr::get($config, 'token'),
+            Arr::get($config, 'prefix')
         );
     }
 
