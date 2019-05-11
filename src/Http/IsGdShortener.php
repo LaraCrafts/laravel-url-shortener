@@ -38,7 +38,7 @@ class IsGdShortener extends RemoteShortener
      */
     public function shortenAsync($url, array $options = [])
     {
-        $options = Arr::add(array_merge($this->defaults, $options), 'query.url', $url);
+        $options = Arr::add(array_merge_recursive($this->defaults, $options), 'query.url', $url);
         $request = new Request('GET', '/create.php');
 
         return $this->client->sendAsync($request, $options)->then(function (ResponseInterface $response) {
