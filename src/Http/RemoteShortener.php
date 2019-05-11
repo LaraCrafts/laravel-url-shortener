@@ -2,9 +2,9 @@
 
 namespace LaraCrafts\UrlShortener\Http;
 
-use LaraCrafts\UrlShortener\Contracts\AsyncShortener;
+use LaraCrafts\UrlShortener\Contracts\Shortener;
 
-abstract class RemoteShortener implements AsyncShortener
+abstract class RemoteShortener implements Shortener
 {
     /**
      * {@inheritDoc}
