@@ -121,7 +121,7 @@ You can change the default driver by setting `URL_SHORTENER_DRIVER={driver}` in 
 config file and changing it directly.
 
 ### Adding your own drivers
-Much like Laravels [core components](https://laravel.com/docs/5.0/extending#managers-and-factories), you can add your
+Much like Laravel's [core components](https://laravel.com/docs/5.0/extending#managers-and-factories), you can add your
 own drivers for this package. You can do this by adding the following code to a central place in your application
 (preferably a service provider).
 
@@ -157,10 +157,10 @@ This driver runs on Bit.ly's API and currently only supports API version 4. The 
 currently only _generic access tokens_ are supported. You can retrieve such tokens from your Bit.ly profile. If you have
 a paid Bit.ly account you will also be able to set the domain for your shortened URLs.
 
-Variable           | Description
--------------------|----------------------
-`BIT_LY_API_TOKEN` | Your Bit.ly API token
-`BIT_LY_DOMAIN`    | Your short URL domain
+Variable                  | Description
+--------------------------|----------------------
+`URL_SHORTENER_API_TOKEN` | Your Bit.ly API token
+`URL_SHORTENER_PREFIX`    | Your short URL domain
 
 ### Firebase Dynamic Links
 [website](https://firebase.google.com/)
@@ -174,11 +174,11 @@ The suffix can have the value `SHORT` or `UNGUESSABLE`.
 > **IMPORTANT!** Links created via the API are not visible in the Firebase console. They are only accessible via
 > the [Analytics REST API](https://firebase.google.com/docs/reference/dynamic-links/analytics).
 
-Variable              | Description                        | Default
-----------------------|------------------------------------|---------------
-`FIREBASE_API_TOKEN`  | Your Firebase API token            |
-`FIREBASE_URI_PREFIX` | Your URL prefix                    |
-`FIREBASE_SUFFIX`     | The path component creation method | `UNGUESSABLE`
+Variable                 | Description                        | Default
+-------------------------|------------------------------------|---------------
+`URL_SHORTENER_API_TOKEN`| Your Firebase API token            |
+`URL_SHORTENER_PREFIX`   | Your URL prefix                    |
+`URL_SHORTENER_STRATEGY` | The path component creation method | `UNGUESSABLE`
 
 ### Is.gd / V.gd
 [website](https://is.gd)
@@ -186,10 +186,9 @@ Variable              | Description                        | Default
 This driver supports [is.gd](https://is.gd) and [v.gd](https://v.gd) trough their respective APIs. When link previews
 are enabled v.gd will be used, otherwise is.gd will be used.
 
-Variable              | Description
-----------------------|----------------------------------------
-`IS_GD_LINK_PREVIEWS` | Enable or disable destination previews
-`IS_GD_STATISTICS`    | Enable or disable statistics
+Variable                  | Description
+--------------------------|----------------------------------------
+`URL_SHORTENER_ANALYTICS` | Enable or disable statistics
 
 ### Ouo.io
 [website](https://ouo.io)
@@ -197,9 +196,9 @@ Variable              | Description
 This driver uses the Ouo.io API and requires an access token. The API allows for URL monetization via advertisements and
 provides analytics via its dashboard.
 
-Variable           | Description 
--------------------|----------------------
-`OUO_IO_API_TOKEN` | Your Ouo.io API token
+Variable                  | Description 
+--------------------------|----------------------
+`URL_SHORTENER_API_TOKEN` | Your Ouo.io API token
 
 ### Polr
 [website](https://github.com/cydrobolt/polr/)
@@ -217,9 +216,9 @@ Variable                  | Description
 This driver uses the Shorte.st API, which requires an access token. This API supports monetization of your URLs and can
 give you insight into your traffic via its dashboard.
 
-Variable              | Description
-----------------------|-------------------------
-`SHORTE_ST_API_TOKEN` | Your Shorte.st API token
+Variable                  | Description
+--------------------------|-------------------------
+`URL_SHORTENER_API_TOKEN` | Your Shorte.st API token
 
 ### TinyURL
 [website](http://tinyurl.com)
