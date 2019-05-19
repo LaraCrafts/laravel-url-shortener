@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class IsGdShortener extends RemoteShortener implements CustomUrlsContract
 {
-    use Concerns\CustomUrls;
+    use Concerns\CreatesCustomUrls;
 
     protected $client;
     protected $defaults;

@@ -2,7 +2,7 @@
 
 namespace LaraCrafts\UrlShortener\Http\Concerns;
 
-trait CustomUrls
+trait CreatesCustomUrls
 {
     /**
      * Shorten the given URL to the given identifier.
