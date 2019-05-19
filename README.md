@@ -139,16 +139,16 @@ adding it to the package via a pull request.
 ## Available drivers
 Below is a list of available drivers along with their individual specs:
 
-Service                                           | Driver name | Since version | Analytics | Monetization
---------------------------------------------------|-------------|---------------|-----------|-----------------
-[Bit.ly](#bitly)                                  | `bit_ly`    | 0.1.0         | yes       | no
-[Firebase Dynamic Links](#firebase-dynamic-links) | `firebase`  | 0.2.0         | yes       | no
-[Is.gd](#isgd--vgd)                               | `is_gd`     | 0.2.0         | yes       | no
-[Ouo.io](#ouoio)                                  | `ouo_io`    | 0.2.0         | yes       | yes
-[Polr](#polr)                                     | `polr`      | 0.3.0         | yes       | no
-[Shorte.st](#shortest)                            | `shorte_st` | 0.1.0         | yes       | yes
-[TinyURL](#tinyurl)                               | `tiny_url`  | 0.1.0         | no        | no
-[V.gd](#isgd--vgd)                                | `is_gd`     | 0.2.0         | yes       | no
+Service                                           | Driver name | Since version | Analytics | Custom URLs | Monetization
+--------------------------------------------------|-------------|---------------|-----------|-------------|-------------
+[Bit.ly](#bitly)                                  | `bit_ly`    | 0.1.0         | yes       | TODO        | no
+[Firebase Dynamic Links](#firebase-dynamic-links) | `firebase`  | 0.2.0         | yes       | no          | no
+[Is.gd](#isgd--vgd)                               | `is_gd`     | 0.2.0         | yes       | yes         | no
+[Ouo.io](#ouoio)                                  | `ouo_io`    | 0.2.0         | yes       | no          | yes
+[Polr](#polr)                                     | `polr`      | 0.3.0         | yes       | TODO        | no
+[Shorte.st](#shortest)                            | `shorte_st` | 0.1.0         | yes       | no          | yes
+[TinyURL](#tinyurl)                               | `tiny_url`  | 0.1.0         | no        | TODO        | no
+[V.gd](#isgd--vgd)                                | `is_gd`     | 0.2.0         | yes       | yes         | no
 
 ### Bit.ly
 [website](https://bit.ly)

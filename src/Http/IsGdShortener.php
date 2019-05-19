@@ -5,10 +5,10 @@ namespace LaraCrafts\UrlShortener\Http;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Arr;
-use LaraCrafts\UrlShortener\Contracts\CustomUrls as CustomUrlsContract;
+use LaraCrafts\UrlShortener\Contracts\CustomUrls;
 use Psr\Http\Message\ResponseInterface;
 
-class IsGdShortener extends RemoteShortener implements CustomUrlsContract
+class IsGdShortener extends RemoteShortener implements CustomUrls
 {
     use Concerns\CreatesCustomUrls;
 
