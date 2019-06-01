@@ -21,6 +21,8 @@ class RedirectsTo extends Constraint
      */
     public function __construct($destination, int $redirects = 1)
     {
+        parent::__construct();
+
         $this->client = new Client();
         $this->destination = rtrim($destination, '/');
         $this->redirects = $redirects;
