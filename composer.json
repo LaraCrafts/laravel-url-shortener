@@ -44,6 +44,9 @@
     "config": {
         "sort-packages": true
     },
+    "scripts": {
+        "tests": "./vendor/bin/phpunit --colors=always"
+    },
     "extra": {
         "laravel": {
             "aliases": {

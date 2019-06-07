@@ -9,7 +9,7 @@ use GuzzleHttp\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use function GuzzleHttp\choose_handler;
 
-class HttpClient extends Client
+class MockClient extends Client
 {
     protected $handler;
     protected $history;

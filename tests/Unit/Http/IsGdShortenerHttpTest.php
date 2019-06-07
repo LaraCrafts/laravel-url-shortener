@@ -5,7 +5,7 @@ namespace LaraCrafts\UrlShortener\Tests\Unit\Http;
 use GuzzleHttp\Exception\ClientException;
 use LaraCrafts\UrlShortener\Http\IsGdShortener;
 
-class IsGdShortenerTest extends TestCase
+class IsGdShortenerHttpTest extends HttpTestCase
 {
     /**
      * @var \LaraCrafts\UrlShortener\Http\IsGdShortener
@@ -15,7 +15,7 @@ class IsGdShortenerTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

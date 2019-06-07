@@ -2,34 +2,30 @@
 
 namespace LaraCrafts\UrlShortener\Tests\Unit\Http;
 
-use Orchestra\Testbench\TestCase as BaseTestCase;
+use PHPUnit\Framework\TestCase;
 
-abstract class TestCase extends BaseTestCase
+abstract class HttpTestCase extends TestCase
 {
     /**
-     * @var \LaraCrafts\UrlShortener\Tests\Unit\Http\HttpClient
+     * @var \LaraCrafts\UrlShortener\Tests\Unit\Http\MockClient
      */
     protected $client;
 
     /**
      * {@inheritDoc}
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
-        parent::setUp();
-
-        $this->client = new HttpClient();
+        $this->client = new MockClient();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         if ($this->client->hasQueuedMessages()) {
             $this->fail(sprintf('HTTP client contains %d unused message(s)', $this->client->getQueueSize()));
         }
-
-        parent::tearDown();
     }
 }
