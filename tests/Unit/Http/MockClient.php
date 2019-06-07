@@ -29,6 +29,21 @@ class MockClient extends Client
     }
 
     /**
+     * Get the client history.
+     *
+     * @param int|null $at
+     * @return array
+     */
+    public function getHistory(int $at = null)
+    {
+        if (is_null($at)) {
+            return $this->history;
+        }
+
+        return $this->history[$at];
+    }
+
+    /**
      * Get the amount of messages waiting in the queue.
      *
      * @return int
