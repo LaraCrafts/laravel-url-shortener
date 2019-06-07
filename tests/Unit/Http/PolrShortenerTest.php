@@ -2,8 +2,7 @@
 
 namespace LaraCrafts\UrlShortener\Tests\Unit\Http;
 
-use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\ClientException;
 use LaraCrafts\UrlShortener\Http\PolrShortener;
 
 class PolrShortenerTest extends HttpTestCase
@@ -20,61 +19,44 @@ class PolrShortenerTest extends HttpTestCase
     {
         parent::setUp();
 
-        $this->client->queue(
-            new Response(200, [], '{"action": "shorten","result": "https://example.com/5kq"}')
-        );
-
         $this->shortener = new PolrShortener($this->client, 'API_KEY', 'http://example.com');
     }
 
     /**
-     * Test Polr synchronous shortening.
+     * Test shortening of URLs through Polr.
      *
      * @return void
      */
     public function testShorten()
     {
-        $shortUrl = $this->shortener->shorten('https://google.com');
+        $this->client->queue(require __DIR__ . '/../../Fixtures/polr/shorten.http-200.php');
 
-        $this->assertCount(1, $this->client->getHistory());
+        $shortenedUrl = $this->shortener->shorten('https://google.com');
+        $request = $this->client->getRequest(0);
 
-        /** @var \GuzzleHttp\Psr7\Request $request */
-        $request = $this->client->getHistory(0)['request'];
-
+        $this->assertNotNull($request);
         $this->assertEquals('GET', $request->getMethod());
+        $this->assertEquals('example.com', $request->getUri()->getHost());
+
         $this->assertEquals(
-            'http://example.com/api/v2/action/shorten?key=API_KEY&url=https%3A%2F%2Fgoogle.com',
-            $request->getUri()->__toString()
+            '/api/v2/action/shorten?key=API_KEY&response_type=json&url=https%3A%2F%2Fgoogle.com',
+            $request->getRequestTarget()
         );
 
-        $this->assertValidUrl($shortUrl);
-        $this->assertEquals('https://example.com/5kq', $shortUrl);
+        $this->assertEquals('http://demo.polr.me/0', $shortenedUrl);
     }
 
     /**
-     * Test Polr asynchronous shortening.
+     * Test failure of shortening through Polr.
      *
      * @return void
+     * @depends testShorten
      */
-    public function testShortenAsync()
+    public function testFailure()
     {
-        $promise = $this->shortener->shortenAsync('https://google.com');
+        $this->client->queue(require __DIR__ . '/../../Fixtures/polr/shorten.http-400.php');
 
-        $this->assertInstanceOf(PromiseInterface::class, $promise);
-        $shortUrl = $promise->wait();
-
-        $this->assertCount(1, $this->client->getHistory());
-
-        /** @var \GuzzleHttp\Psr7\Request $request */
-        $request = $this->client->getHistory(0)['request'];
-
-        $this->assertEquals('GET', $request->getMethod());
-        $this->assertEquals(
-            'http://example.com/api/v2/action/shorten?key=API_KEY&url=https%3A%2F%2Fgoogle.com',
-            $request->getUri()->__toString()
-        );
-
-        $this->assertValidUrl($shortUrl);
-        $this->assertEquals('https://example.com/5kq', $shortUrl);
+        $this->expectException(ClientException::class);
+        $this->shortener->shorten('https://google.com');
     }
 }
