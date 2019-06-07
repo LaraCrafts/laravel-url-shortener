@@ -14,7 +14,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -24,7 +24,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * {@inheritDoc}
      */
-    protected function tearDown(): void
+    public function tearDown(): void
     {
         if ($this->client->hasQueuedMessages()) {
             $this->fail(sprintf('HTTP client contains %d unused message(s)', $this->client->getQueueSize()));
