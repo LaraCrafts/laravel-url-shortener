@@ -26,6 +26,11 @@ Powerful URL shortening tools in Laravel
     - [Shorte.st](#shortest)
     - [TinyURL](#tinyurl)
     - [V.gd](#isgd--vgd)
+- [Changelog](#changelog)
+- [Security](#security)
+- [Contributing](#contributing)
+- [Credits](#credits)
+- [License](#license)
     
 ## Installation
 You can easily install this package using Composer, by running the following command:
@@ -224,3 +229,21 @@ Variable                  | Description
 [website](http://tinyurl.com)
 
 This driver runs on the TinyURL API, which requires no additional setup. This driver is the package default.
+
+## Changelog
+Please see [CHANGELOG](CHANGELOG.md) for more information what has been changed in recent versions.
+
+## Security
+If you discover any security related issues, please email one of the authors instead of using the issue tracker. You can
+find the author emails in the [composer.json](composer.json).
+
+## Contributing
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Credits
+- [Choraimy Kroonstuiver](https://github.com/axlon)
+- [László Görög](https://github.com/nerg4l)
+- [All Contributors](../../contributors)
+
+## License
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
