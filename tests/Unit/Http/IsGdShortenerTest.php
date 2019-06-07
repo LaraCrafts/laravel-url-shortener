@@ -23,18 +23,38 @@ class IsGdShortenerTest extends HttpTestCase
     }
 
     /**
-     * Test the shortening of URLs.
+     * Test the shortening of URLs through is.gd
      *
      * @return void
      */
-    public function testShorten()
+    public function testShortening()
     {
-        $this->client->queue(
-            require __DIR__ . '/../../Fixtures/is.gd/shorten.http-200.php',
-            require __DIR__ . '/../../Fixtures/is.gd/shorten.http-400.php'
+        $this->client->queue(require __DIR__ . '/../../Fixtures/is.gd/shorten.http-200.php');
+
+        $shortenedUrl = $this->shortener->shorten('https://google.com');
+        $request = $this->client->getRequest(0);
+
+        $this->assertNotNull($request);
+        $this->assertEquals('GET', $request->getMethod());
+        $this->assertEquals('is.gd', $request->getUri()->getHost());
+
+        $this->assertEquals(
+            '/create.php?format=simple&logstats=0&url=https%3A%2F%2Fgoogle.com',
+            $request->getRequestTarget()
         );
 
-        $this->assertEquals('https://is.gd/jAxBiv', $this->shortener->shorten('https://google.com'));
+        $this->assertEquals('https://is.gd/jAxBiv', $shortenedUrl);
+    }
+
+    /**
+     * Test failure of shortening through is.gd.
+     *
+     * @return void
+     * @depends testShortening
+     */
+    public function testFailure()
+    {
+        $this->client->queue(require __DIR__ . '/../../Fixtures/is.gd/shorten.http-400.php');
 
         $this->expectException(ClientException::class);
         $this->shortener->shorten('https://google.com');

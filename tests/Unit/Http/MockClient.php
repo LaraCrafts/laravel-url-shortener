@@ -32,7 +32,7 @@ class MockClient extends Client
      * Get the client history.
      *
      * @param int|null $at
-     * @return array
+     * @return mixed
      */
     public function getHistory(int $at = null)
     {
@@ -40,7 +40,18 @@ class MockClient extends Client
             return $this->history;
         }
 
-        return $this->history[$at];
+        return $this->history[$at] ?? null;
+    }
+
+    /**
+     * Get a previously made request.
+     *
+     * @param int $at
+     * @return \Psr\Http\Message\RequestInterface|null
+     */
+    public function getRequest(int $at)
+    {
+        return $this->getHistory($at)['request'] ?? null;
     }
 
     /**
