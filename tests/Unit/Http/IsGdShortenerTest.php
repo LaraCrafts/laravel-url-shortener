@@ -5,7 +5,7 @@ namespace LaraCrafts\UrlShortener\Tests\Unit\Http;
 use GuzzleHttp\Exception\ClientException;
 use LaraCrafts\UrlShortener\Http\IsGdShortener;
 
-class IsGdShortenerHttpTest extends HttpTestCase
+class IsGdShortenerTest extends HttpTestCase
 {
     /**
      * @var \LaraCrafts\UrlShortener\Http\IsGdShortener
