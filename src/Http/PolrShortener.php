@@ -35,11 +35,11 @@ class PolrShortener extends RemoteShortener
             'allow_redirects' => false,
             'base_uri' => $domain,
             'headers' => [
-                'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
             ],
             'query' => [
                 'key' => $token,
+                'response_type' => 'json',
             ],
         ];
     }
