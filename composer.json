@@ -27,13 +27,13 @@
         "php": "^7.1",
         "guzzlehttp/guzzle": "^6.2",
         "guzzlehttp/promises": "^1.0",
-        "guzzlehttp/psr7": "^1.0",
+        "guzzlehttp/psr7": "^1.4",
         "illuminate/support": "^5.1,<5.9",
         "psr/http-message": "^1.0"
     },
     "require-dev": {
         "orchestra/testbench": "^3.1",
-        "phpunit/phpunit": "^5.0 || ^6.0 || ^7.0 || ^8.0"
+        "phpunit/phpunit": "^5.2 || ^6.0 || ^7.0 || ^8.0"
     },
     "autoload": {
         "psr-4": {
@@ -47,6 +47,9 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "tests": "./vendor/bin/phpunit --colors=always"
     },
     "extra": {
         "laravel": {

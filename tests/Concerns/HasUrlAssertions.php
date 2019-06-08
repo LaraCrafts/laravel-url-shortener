@@ -33,9 +33,9 @@ trait HasUrlAssertions
     /**
      * Create a IsValidUrl instance
      *
-     * @return IsValidUrl
+     * @return \LaraCrafts\UrlShortener\Tests\Constraints\IsValidUrl
      */
-    public static function isValidUrl(): IsValidUrl
+    public static function isValidUrl()
     {
         return new IsValidUrl;
     }
@@ -43,11 +43,11 @@ trait HasUrlAssertions
     /**
      * Create a RedirectsTo instance
      *
-     * @param $expected
+     * @param \Psr\Http\Message\UriInterface|string $expected
      * @param int $redirects
-     * @return RedirectsTo
+     * @return \LaraCrafts\UrlShortener\Tests\Constraints\RedirectsTo
      */
-    public static function redirectsTo($expected, int $redirects = 1): RedirectsTo
+    public static function redirectsTo($expected, int $redirects = 1)
     {
         return new RedirectsTo($expected, $redirects);
     }
