@@ -10,7 +10,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
 use LaraCrafts\UrlShortener\Http\PolrShortener;
 use LaraCrafts\UrlShortener\Tests\Concerns\HasUrlAssertions;
-use PHPUnit\Framework\TestCase;
+use Orchestra\Testbench\TestCase;
 
 class PolrShortenerTest extends TestCase
 {
@@ -29,7 +29,7 @@ class PolrShortenerTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -61,7 +61,7 @@ class PolrShortenerTest extends TestCase
         $request = $this->history[0]['request'];
         $this->assertEquals('GET', $request->getMethod());
         $this->assertEquals(
-            'http://example.com/api/v2/action/shorten?key=API_KEY&url=https%3A%2F%2Fgoogle.com',
+            'http://example.com/api/v2/action/shorten?key=API_KEY&response_type=json&url=https%3A%2F%2Fgoogle.com',
             $request->getUri()->__toString()
         );
 
@@ -87,7 +87,7 @@ class PolrShortenerTest extends TestCase
         $request = $this->history[0]['request'];
         $this->assertEquals('GET', $request->getMethod());
         $this->assertEquals(
-            'http://example.com/api/v2/action/shorten?key=API_KEY&url=https%3A%2F%2Fgoogle.com',
+            'http://example.com/api/v2/action/shorten?key=API_KEY&response_type=json&url=https%3A%2F%2Fgoogle.com',
             $request->getUri()->__toString()
         );
 
