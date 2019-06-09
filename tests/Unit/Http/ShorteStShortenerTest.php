@@ -23,7 +23,7 @@ class ShorteStShortenerTest extends HttpTestCase
     }
 
     /**
-     * Test shortening of URLs through TinyURL.
+     * Test shortening of URLs through Shorte.st.
      *
      * @return void
      */
@@ -43,7 +43,7 @@ class ShorteStShortenerTest extends HttpTestCase
     }
 
     /**
-     * Test failure of shortening through TinyURL.
+     * Test failure of shortening through Shorte.st.
      *
      * @return void
      * @depends testShorten

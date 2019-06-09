@@ -3,7 +3,6 @@
 namespace LaraCrafts\UrlShortener\Tests\Unit\Http;
 
 use GuzzleHttp\Exception\ClientException;
-use LaraCrafts\UrlShortener\Http\PolrShortener;
 use LaraCrafts\UrlShortener\Http\TinyUrlShortener;
 
 class TinyUrlShortenerTest extends HttpTestCase
