@@ -13,7 +13,6 @@ Powerful URL shortening tools in Laravel
     - [Requirements](#requirements)
     - [Laravel 5.5+](#laravel-55)
     - [Laravel 5.1-5.4](#laravel-51-54)
-    - [Lumen](#lumen)
 - [Usage](#usage)
     - [Changing the driver](#changing-the-driver)
     - [Adding your own drivers](#adding-your-own-drivers)
@@ -43,7 +42,7 @@ composer require laracrafts/laravel-url-shortener
 This package has the following requirements:
 
 - PHP 7.1 or higher
-- Laravel (or Lumen) 5.1 or higher
+- Laravel 5.1 or higher
 
 ### Laravel 5.5+
 If you use Laravel 5.5 or higher, that's it. You can now use the package, continue to the [usage](#usage) section.
@@ -60,21 +59,12 @@ this by adding the following line to your `config/app.php` file:
 ],
 ```
 
-### Lumen
-If you're using Lumen, register the package's service provider by adding the following line to your `bootstrap/app.php`
-file:
-
-```php
-$app->register(LaraCrafts\UrlShortener\UrlShortenerServiceProvider::class);
-```
-
 ## Usage
 The shortener can be retrieved from the container in two ways:
 
 ```php
-// This works in both Laravel and Lumen
 $shortener = app('url.shortener');
-// This only works in Laravel 5.2+
+// or...
 $shortener = url()->shortener();
 ```
 
@@ -88,13 +78,13 @@ $shortener->shorten(...);
 $shortener->shortenAsync(...);
 
 // You can also call shortening from Laravel's url component directly
-app('url')->shorten(...);
-
-// or...
 url()->shorten(...);
 
+// or...
+app('url')->shorten(...);
+
 // or even...
-UrlShortener::shorten(...);
+app('url.shortener')->shorten(...);
 ```
 
 This package relies on Guzzle's promise library for its asynchronous shortening, read their
@@ -131,9 +121,12 @@ own drivers for this package. You can do this by adding the following code to a 
 (preferably a service provider).
 
 ```php
-UrlShortener::extend('my_driver', function ($app, $config) {
-    // Return your driver instance here
-});
+public function boot(ShortenerManager $shorteners)
+{
+    $shorteners->extend('my_driver', function ($app, $config) {
+       // Return your driver instance here
+    });
+}
 ```
 
 Once you have registered your driver you can call it like any other driver.
