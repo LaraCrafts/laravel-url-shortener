@@ -2,7 +2,7 @@
 
 use function GuzzleHttp\Psr7\parse_response;
 
-return parse_response(trim('
+return parse_response(ltrim('
 HTTP/1.1 400 Bad Request
 Server: nginx
 Content-Type: text/html; charset=UTF-8
