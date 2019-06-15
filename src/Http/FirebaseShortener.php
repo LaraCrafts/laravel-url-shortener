@@ -3,10 +3,10 @@
 namespace LaraCrafts\UrlShortener\Http;
 
 use GuzzleHttp\ClientInterface;
+use function GuzzleHttp\json_decode;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\json_decode;
 
 class FirebaseShortener extends RemoteShortener
 {

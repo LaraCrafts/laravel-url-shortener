@@ -2,12 +2,12 @@
 
 namespace LaraCrafts\UrlShortener\Tests\Unit\Http;
 
+use function GuzzleHttp\choose_handler;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\choose_handler;
 
 class MockClient extends Client
 {

@@ -3,9 +3,9 @@
 namespace LaraCrafts\UrlShortener\Http;
 
 use GuzzleHttp\ClientInterface;
+use function GuzzleHttp\json_decode;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\json_decode;
 
 class ShorteStShortener extends RemoteShortener
 {

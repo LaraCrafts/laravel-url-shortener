@@ -29,7 +29,7 @@ class IsGdShortenerTest extends HttpTestCase
      */
     public function testShortening()
     {
-        $this->client->queue(require __DIR__ . '/../../Fixtures/is.gd/shorten.http-200.php');
+        $this->client->queue(require __DIR__ . '/../../Fixtures/is_gd/shorten.http-200.php');
 
         $shortenedUrl = $this->shortener->shorten('https://google.com');
         $request = $this->client->getRequest(0);
@@ -54,7 +54,7 @@ class IsGdShortenerTest extends HttpTestCase
      */
     public function testFailure()
     {
-        $this->client->queue(require __DIR__ . '/../../Fixtures/is.gd/shorten.http-400.php');
+        $this->client->queue(require __DIR__ . '/../../Fixtures/is_gd/shorten.http-400.php');
 
         $this->expectException(ClientException::class);
         $this->shortener->shorten('https://google.com');
