@@ -66,6 +66,6 @@ class RedirectsTo extends Constraint
      */
     public function toString(): string
     {
-        return 'redirects to ' . $this->destination;
+        return 'redirects to ' . $this->exporter->export($this->destination);
     }
 }
