@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.3.0](https://github.com/LaraCrafts/laravel-url-shortener/releases/tag/v0.3.0) (TBD)
+## [v0.3.0](https://github.com/LaraCrafts/laravel-url-shortener/releases/tag/v0.3.0) (2019-07-07)
 - Restructured config (**Breaking change**)
 - Removed UrlShortener facade (**Breaking change**)
 - Added Polr driver
