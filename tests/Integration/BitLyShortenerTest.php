@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use LaraCrafts\UrlShortener\Http\BitLyShortener;
 use LaraCrafts\UrlShortener\Tests\Concerns\HasUrlAssertions;
-use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BitLyShortenerTest extends TestCase
 {
@@ -24,7 +24,7 @@ class BitLyShortenerTest extends TestCase
     {
         parent::setUp();
 
-        if (!$token = env('BIT_LY_API_TOKEN')) {
+        if (!$token = getenv('BIT_LY_API_TOKEN')) {
             $this->markTestSkipped('No Bit.ly API token set');
         }
 

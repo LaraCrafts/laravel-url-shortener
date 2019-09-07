@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use LaraCrafts\UrlShortener\Http\FirebaseShortener;
 use LaraCrafts\UrlShortener\Tests\Concerns\HasUrlAssertions;
-use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class FirebaseShortenerTest extends TestCase
 {
@@ -29,11 +29,11 @@ class FirebaseShortenerTest extends TestCase
     {
         parent::setUp();
 
-        if (!$token = env('FIREBASE_API_TOKEN')) {
+        if (!$token = getenv('FIREBASE_API_TOKEN')) {
             $this->markTestSkipped('No Firebase API token set');
         }
 
-        if (!$prefix = env('FIREBASE_URI_PREFIX')) {
+        if (!$prefix = getenv('FIREBASE_URI_PREFIX')) {
             $this->markTestSkipped('No Firebase URI prefix set');
         }
 

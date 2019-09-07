@@ -7,7 +7,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Http\IsGdShortener;
 use LaraCrafts\UrlShortener\Tests\Concerns\HasUrlAssertions;
-use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class VGdShortenerTest extends TestCase
 {
