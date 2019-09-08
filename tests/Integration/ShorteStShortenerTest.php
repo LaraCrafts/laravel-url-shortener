@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use LaraCrafts\UrlShortener\Http\ShorteStShortener;
 use LaraCrafts\UrlShortener\Tests\Concerns\HasUrlAssertions;
-use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ShorteStShortenerTest extends TestCase
 {
@@ -24,7 +24,7 @@ class ShorteStShortenerTest extends TestCase
     {
         parent::setUp();
 
-        if (!$token = env('SHORTE_ST_API_TOKEN')) {
+        if (!$token = getenv('SHORTE_ST_API_TOKEN')) {
             $this->markTestSkipped('No Shorte.st API token set');
         }
 

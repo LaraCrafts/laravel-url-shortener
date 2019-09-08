@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use LaraCrafts\UrlShortener\Http\TinyUrlShortener;
 use LaraCrafts\UrlShortener\Tests\Concerns\HasUrlAssertions;
-use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class TinyUrlShortenerTest extends TestCase
 {

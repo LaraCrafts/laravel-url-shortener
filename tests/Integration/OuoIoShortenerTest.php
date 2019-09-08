@@ -7,7 +7,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Support\Str;
 use LaraCrafts\UrlShortener\Http\OuoIoShortener;
 use LaraCrafts\UrlShortener\Tests\Concerns\HasUrlAssertions;
-use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class OuoIoShortenerTest extends TestCase
 {
@@ -25,7 +25,7 @@ class OuoIoShortenerTest extends TestCase
     {
         parent::setUp();
 
-        if (!$token = env('OUO_IO_API_TOKEN')) {
+        if (!$token = getenv('OUO_IO_API_TOKEN')) {
             $this->markTestSkipped('No Ouo.io API token set');
         }
 
