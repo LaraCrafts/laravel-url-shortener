@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.3.1](https://github.com/LaraCrafts/laravel-url-shortener/releases/tag/v0.3.0) (2019-09-08)
+- Added Laravel 6 support
+
 ## [v0.3.0](https://github.com/LaraCrafts/laravel-url-shortener/releases/tag/v0.3.0) (2019-07-07)
 - Restructured config (**Breaking change**)
 - Removed UrlShortener facade (**Breaking change**)
