@@ -32,7 +32,9 @@
         "psr/http-message": "^1.0"
     },
     "require-dev": {
+        "fzaninotto/faker": "^1.8",
         "illuminate/routing": "^5.1 || ^6.0",
+        "mockery/mockery": "^1.2",
         "phpunit/phpunit": "^5.2 || ^6.0 || ^7.0"
     },
     "autoload": {

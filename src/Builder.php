@@ -82,6 +82,16 @@ class Builder
     }
 
     /**
+     * Get the options.
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
      * Get the URI.
      *
      * @return \Psr\Http\Message\UriInterface
