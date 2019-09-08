@@ -3,9 +3,7 @@
 namespace LaraCrafts\UrlShortener\Tests;
 
 use Faker\Factory;
-use GuzzleHttp\Promise\PromiseInterface;
 use LaraCrafts\UrlShortener\Builder;
-use LaraCrafts\UrlShortener\Concerns\ToPromise;
 use LaraCrafts\UrlShortener\Concerns\WithSuffixes;
 use LaraCrafts\UrlShortener\Contracts\Client;
 use LaraCrafts\UrlShortener\Contracts\UnsupportedOperationException;
