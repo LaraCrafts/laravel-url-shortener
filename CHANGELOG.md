@@ -1,6 +1,9 @@
 # Changelog
 
-## [v0.3.1](https://github.com/LaraCrafts/laravel-url-shortener/releases/tag/v0.3.0) (2019-09-08)
+## [v0.3.2](https://github.com/LaraCrafts/laravel-url-shortener/releases/tag/v0.3.2) (2019-09-12)
+- Fix shorten function not being accessible from UrlGenerator and UrlShortenerManager
+
+## [v0.3.1](https://github.com/LaraCrafts/laravel-url-shortener/releases/tag/v0.3.1) (2019-09-08)
 - Added Laravel 6 support
 
 ## [v0.3.0](https://github.com/LaraCrafts/laravel-url-shortener/releases/tag/v0.3.0) (2019-07-07)
