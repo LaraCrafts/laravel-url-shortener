@@ -17,6 +17,9 @@ use LaraCrafts\UrlShortener\Http\PolrShortener;
 use LaraCrafts\UrlShortener\Http\ShorteStShortener;
 use LaraCrafts\UrlShortener\Http\TinyUrlShortener;
 
+/**
+ * @method string shorten(\Psr\Http\Message\UriInterface|string $url, array $options = [])
+ */
 class UrlShortenerManager implements FactoryContract
 {
     protected $app;
@@ -34,6 +37,18 @@ class UrlShortenerManager implements FactoryContract
         $this->app = $app;
         $this->customCreators = [];
         $this->shorteners = [];
+    }
+
+    /**
+     * Dynamically call the default driver instance.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        return $this->driver()->$method(...$parameters);
     }
 
     /**
