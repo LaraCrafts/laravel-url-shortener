@@ -5,6 +5,8 @@ namespace LaraCrafts\UrlShortener;
 use GuzzleHttp\Psr7\Uri;
 use InvalidArgumentException;
 use LaraCrafts\UrlShortener\Concerns\ToPromise;
+use LaraCrafts\UrlShortener\Concerns\ToString;
+use LaraCrafts\UrlShortener\Concerns\ToUri;
 use LaraCrafts\UrlShortener\Concerns\WithSuffixes;
 use LaraCrafts\UrlShortener\Contracts\Client;
 use LaraCrafts\UrlShortener\Contracts\UnsupportedOperationException;
@@ -60,9 +62,12 @@ class Builder
     public function get()
     {
         $driver = $this->getClient()->driver();
-        $uri = null;
 
-        if ($driver instanceof ToPromise) {
+        if ($driver instanceof ToUri) {
+            $uri = $driver->toUri($this->uri, $this->options);
+        } elseif ($driver instanceof ToString) {
+            $uri = $driver->toString($this->uri, $this->options);
+        } elseif ($driver instanceof ToPromise) {
             $uri = $driver->toPromise($this->uri, $this->options)->wait();
         } else {
             throw new UnsupportedOperationException('URL shortening is not supported');

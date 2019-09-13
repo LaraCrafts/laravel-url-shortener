@@ -13,5 +13,5 @@ interface WithSuffixes
      * @param string $suffix
      * @return void
      */
-    public function applySuffix(Builder $builder, string $suffix);
+    public function applySuffix(Builder $builder, string $suffix): void;
 }

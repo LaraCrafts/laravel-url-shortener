@@ -2,6 +2,7 @@
 
 namespace LaraCrafts\UrlShortener\Concerns;
 
+use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\UriInterface;
 
 interface ToPromise
@@ -13,5 +14,5 @@ interface ToPromise
      * @param array $options
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function toPromise(UriInterface $uri, array $options);
+    public function toPromise(UriInterface $uri, array $options): PromiseInterface;
 }
