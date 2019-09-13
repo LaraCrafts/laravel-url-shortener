@@ -126,7 +126,7 @@ class Builder
      * @param string $suffix
      * @return $this
      */
-    public function toSuffix(string $suffix)
+    public function to(string $suffix)
     {
         $driver = $this->getClient()->driver();
 
@@ -155,5 +155,15 @@ class Builder
         }
 
         return $this;
+    }
+
+    /**
+     * Get the shortened URI as a string.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->get();
     }
 }

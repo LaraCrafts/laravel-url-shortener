@@ -95,7 +95,7 @@ class BuilderTest extends TestCase
             ->with($builder, $suffix)
             ->andReturnNull();
 
-        $builder->toSuffix($suffix);
+        $builder->to($suffix);
     }
 
     /**
@@ -117,6 +117,6 @@ class BuilderTest extends TestCase
         $this->expectException(UnsupportedOperationException::class);
         $this->expectExceptionMessage('Applying a custom suffix is not supported');
 
-        $builder->toSuffix($suffix);
+        $builder->to($suffix);
     }
 }
