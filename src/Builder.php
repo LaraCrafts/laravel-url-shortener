@@ -4,10 +4,11 @@ namespace LaraCrafts\UrlShortener;
 
 use GuzzleHttp\Psr7\Uri;
 use InvalidArgumentException;
+use LaraCrafts\UrlShortener\Concerns\CustomDomains;
+use LaraCrafts\UrlShortener\Concerns\CustomSuffixes;
 use LaraCrafts\UrlShortener\Concerns\ToPromise;
 use LaraCrafts\UrlShortener\Concerns\ToString;
 use LaraCrafts\UrlShortener\Concerns\ToUri;
-use LaraCrafts\UrlShortener\Concerns\WithSuffixes;
 use LaraCrafts\UrlShortener\Contracts\Client;
 use LaraCrafts\UrlShortener\Contracts\UnsupportedOperationException;
 use Psr\Http\Message\UriInterface;
@@ -52,6 +53,25 @@ class Builder
         return $promise->then(function ($uri) {
             return $this->parseUri($uri);
         });
+    }
+
+    /**
+     * Set the domain to shorten to.
+     *
+     * @param string $domain
+     * @return $this
+     */
+    public function domain(string $domain)
+    {
+        $driver = $this->getClient()->driver();
+
+        if (!$driver instanceof CustomDomains) {
+            throw new UnsupportedOperationException('Applying a custom domain is not supported');
+        }
+
+        $driver->withDomain($this, $domain);
+
+        return $this;
     }
 
     /**
@@ -135,11 +155,11 @@ class Builder
     {
         $driver = $this->getClient()->driver();
 
-        if (!$driver instanceof WithSuffixes) {
+        if (!$driver instanceof CustomSuffixes) {
             throw new UnsupportedOperationException('Applying a custom suffix is not supported');
         }
 
-        $driver->applySuffix($this, $suffix);
+        $driver->withSuffix($this, $suffix);
 
         return $this;
     }
