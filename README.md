@@ -52,7 +52,32 @@ composer require guzzlehttp/guzzle:^6.0 http-interop/http-factory-guzzle laracra
 ```
 
 ### Advanced installation
-Please read the advanced [installation guide](docs/ADVANCED-INSTALL.md).
+First, you must install [PSR-7](https://packagist.org/providers/psr/http-message-implementation),
+[PSR-17](https://packagist.org/providers/psr/http-factory-implementation) and
+[PSR-18](https://packagist.org/providers/psr/http-client-implementation) compatible libraries. Then, you can install
+this package by running the following command:
+
+```php
+composer require laracrafts/laravel-url-shortener
+```
+
+This package
+uses `php-http/discovery` and should pick up on each of your PSR compatible packages automatically. However if it
+does not, bind each missing PSR interface to the service container as detailed below.
+
+```php
+class AppServiceProvider extends ServiceProvider
+{
+    public function register()
+    {
+        $this->app->bind('\Psr\Http\Client\ClientInterface', MyHttpClient::class);
+        $this->app->bind('\Psr\Http\Message\RequestFactoryInterface', MyRequestFactory::class);
+        $this->app->bind('\Psr\Http\Message\ResponseFactoryInterface', MyResponseFactory::class);
+        $this->app->bind('\Psr\Http\Message\UriFactoryInterface', MyUriFactory::class);
+    }
+}
+
+```
 
 ### Laravel 5.1-5.4
 If you're using an older version of Laravel, register the package's service provider to your application. You can do
