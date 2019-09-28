@@ -33,15 +33,6 @@ class UrlShortenerServiceProvider extends ServiceProvider
         if (class_exists('\Http\Adapter\Guzzle6\Client')) {
             # PHP-HTTP adapter for Guzzle 6
             $this->app->bind(ClientInterface::class, '\Http\Adapter\Guzzle6\Client');
-        } elseif (class_exists('\Symfony\Component\HttpClient\Psr18Client')) {
-            # Symfony HttpClient component
-            $this->app->bind(ClientInterface::class, '\Symfony\Component\HttpClient\Psr18Client');
-        } elseif (class_exists('\Http\Client\Curl\Client')) {
-            # PHP-HTTP cURL client
-            $this->app->bind(ClientInterface::class, '\Http\Client\Curl\Client');
-        } elseif (class_exists('\Buzz\Client\Curl')) {
-            # Buzz
-            $this->app->bind(ClientInterface::class, '\Buzz\Client\Curl');
         }
     }
 
