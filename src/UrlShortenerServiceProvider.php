@@ -3,6 +3,7 @@
 namespace LaraCrafts\UrlShortener;
 
 use Illuminate\Support\ServiceProvider;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\UriFactoryInterface;
 
 class UrlShortenerServiceProvider extends ServiceProvider
@@ -26,7 +27,34 @@ class UrlShortenerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->resolveHttpClient();
         $this->resolveUriFactory();
+    }
+
+    /**
+     * Register a PSR-18 compatible HTTP client.
+     *
+     * @return void
+     */
+    protected function resolveHttpClient()
+    {
+        if ($this->app->bound(ClientInterface::class)) {
+            return;
+        }
+
+        if (class_exists('\Http\Adapter\Guzzle6\Client')) {
+            # PHP-HTTP adapter for Guzzle 6
+            $this->app->bind(ClientInterface::class, '\Http\Adapter\Guzzle6\Client');
+        } elseif (class_exists('\Symfony\Component\HttpClient\Psr18Client')) {
+            # Symfony HttpClient component
+            $this->app->bind(ClientInterface::class, '\Symfony\Component\HttpClient\Psr18Client');
+        } elseif (class_exists('\Http\Client\Curl\Client')) {
+            # PHP-HTTP cURL client
+            $this->app->bind(ClientInterface::class, '\Http\Client\Curl\Client');
+        } elseif (class_exists('\Buzz\Client\Curl')) {
+            # Buzz
+            $this->app->bind(ClientInterface::class, '\Buzz\Client\Curl');
+        }
     }
 
     /**

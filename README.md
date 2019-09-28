@@ -39,12 +39,13 @@ This package has the following requirements:
 
 - PHP 7.1 or higher
 - Laravel 5.1 or higher
-- [PSR-7](https://packagist.org/providers/psr/http-message-implementation) and
-[PSR-17](https://packagist.org/providers/psr/http-factory-implementation) compliant HTTP message library
+- Compliance with [PSR-7](https://packagist.org/providers/psr/http-message-implementation),
+[PSR-17](https://packagist.org/providers/psr/http-factory-implementation) and
+[PSR-18](https://packagist.org/packages/symfony/http-client)
 
-### Installing this package with Guzzle
+### Installing this package with Guzzle 6
 ```bash
-composer require laracrafts/laravel-url-shortener guzzlehttp/guzzle http-interop/http-factory-guzzle
+composer require laracrafts/laravel-url-shortener guzzlehttp/guzzle:^6.0 http-interop/http-factory-guzzle php-http/guzzle6-adapter
 ```
 
 ### Installing this package with Zend Diactoros
