@@ -6,7 +6,6 @@ use GuzzleHttp\Psr7\Uri;
 use InvalidArgumentException;
 use LaraCrafts\UrlShortener\Concerns\CustomDomains;
 use LaraCrafts\UrlShortener\Concerns\CustomSuffixes;
-use LaraCrafts\UrlShortener\Concerns\ToPromise;
 use LaraCrafts\UrlShortener\Concerns\ToString;
 use LaraCrafts\UrlShortener\Concerns\ToUri;
 use LaraCrafts\UrlShortener\Contracts\Client;
@@ -32,27 +31,6 @@ class Builder
         $this->client = $client;
         $this->options = $options;
         $this->uri = $this->parseUri($uri);
-    }
-
-    /**
-     * Get the shortened URI asynchronously.
-     *
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function async()
-    {
-        $driver = $this->getClient()->driver();
-        $promise = null;
-
-        if ($driver instanceof ToPromise) {
-            $promise = $driver->toPromise($this->uri, $this->options);
-        } else {
-            throw new UnsupportedOperationException('Async URL shortening is not supported');
-        }
-
-        return $promise->then(function ($uri) {
-            return $this->parseUri($uri);
-        });
     }
 
     /**
@@ -87,8 +65,6 @@ class Builder
             $uri = $driver->toUri($this->uri, $this->options);
         } elseif ($driver instanceof ToString) {
             $uri = $driver->toString($this->uri, $this->options);
-        } elseif ($driver instanceof ToPromise) {
-            $uri = $driver->toPromise($this->uri, $this->options)->wait();
         } else {
             throw new UnsupportedOperationException('URL shortening is not supported');
         }
