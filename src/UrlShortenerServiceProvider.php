@@ -3,6 +3,7 @@
 namespace LaraCrafts\UrlShortener;
 
 use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use Illuminate\Support\ServiceProvider;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -23,20 +24,15 @@ class UrlShortenerServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register a PSR-18 compatible HTTP client.
+     * Register a PSR-18 compatible HTTP client to the container.
      *
      * @return void
      */
     protected function resolveHttpClient()
     {
-        if ($this->app->bound(ClientInterface::class)) {
-            return;
-        }
-
-        if (class_exists('\Http\Adapter\Guzzle6\Client')) {
-            # PHP-HTTP adapter for Guzzle 6
-            $this->app->bind(ClientInterface::class, '\Http\Adapter\Guzzle6\Client');
-        }
+        $this->app->bindIf(ClientInterface::class, function () {
+            return Psr18ClientDiscovery::find();
+        });
     }
 
     /**
