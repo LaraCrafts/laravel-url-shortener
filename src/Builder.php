@@ -2,19 +2,19 @@
 
 namespace LaraCrafts\UrlShortener;
 
-use GuzzleHttp\Psr7\Uri;
-use InvalidArgumentException;
 use LaraCrafts\UrlShortener\Concerns\CustomDomains;
 use LaraCrafts\UrlShortener\Concerns\CustomSuffixes;
 use LaraCrafts\UrlShortener\Concerns\ToString;
 use LaraCrafts\UrlShortener\Concerns\ToUri;
 use LaraCrafts\UrlShortener\Contracts\Client;
 use LaraCrafts\UrlShortener\Contracts\UnsupportedOperationException;
+use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
 
 class Builder
 {
     protected $client;
+    protected $factory;
     protected $options;
     protected $uri;
 
@@ -22,13 +22,16 @@ class Builder
      * Create a new shortening builder instance.
      *
      * @param \LaraCrafts\UrlShortener\Contracts\Client $client
+     * @param \Psr\Http\Message\UriFactoryInterface $factory
      * @param \Psr\Http\Message\UriInterface|string $uri
+     * @param array $options
      * @return void
      */
-    public function __construct(Client $client, $uri)
+    public function __construct(Client $client, UriFactoryInterface $factory, $uri, array $options)
     {
         $this->client = $client;
-        $this->options = [];
+        $this->factory = $factory;
+        $this->options = $options;
         $this->uri = $this->parseUri($uri);
     }
 
@@ -104,7 +107,7 @@ class Builder
     /**
      * Parse the given URI.
      *
-     * @param \Psr\Http\Message\UriInterface|string $uri
+     * @param mixed $uri
      * @return \Psr\Http\Message\UriInterface
      */
     protected function parseUri($uri)
@@ -113,11 +116,7 @@ class Builder
             return $uri;
         }
 
-        if (is_string($uri) || (is_object($uri) && method_exists($uri, '__toString'))) {
-            return new Uri((string)$uri);
-        }
-
-        throw new InvalidArgumentException('URI must be a string or UriInterface');
+        return $this->factory->createUri($uri);
     }
 
     /**

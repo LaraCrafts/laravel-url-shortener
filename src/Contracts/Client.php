@@ -15,7 +15,8 @@ interface Client
      * Create a new shortening builder.
      *
      * @param \Psr\Http\Message\UriInterface|string $uri
+     * @param array $options
      * @return \LaraCrafts\UrlShortener\Builder
      */
-    public function shorten($uri);
+    public function shorten($uri, array $options = []);
 }
