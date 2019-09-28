@@ -5,7 +5,7 @@ namespace LaraCrafts\UrlShortener\Contracts;
 interface Factory
 {
     /**
-     * Get a shortening driver by name, wrapped in a client.
+     * Get a client instance.
      *
      * @param string|null $name
      * @return \LaraCrafts\UrlShortener\Contracts\Client

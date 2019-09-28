@@ -3,9 +3,18 @@
 namespace LaraCrafts\UrlShortener;
 
 use Illuminate\Support\Manager;
+use LaraCrafts\UrlShortener\Contracts\Factory;
 
-class UrlShortenerManager extends Manager
+class UrlShortenerManager extends Manager implements Factory
 {
+    /**
+     * {@inheritDoc}
+     */
+    public function client(string $name = null)
+    {
+        return $this->driver($name);
+    }
+
     /**
      * {@inheritDoc}
      */
