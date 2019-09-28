@@ -7,18 +7,6 @@ use Psr\Http\Message\UriFactoryInterface;
 
 class UrlShortenerServiceProvider extends ServiceProvider
 {
-    public $defer = true;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function provides()
-    {
-        return [
-            UriFactoryInterface::class,
-        ];
-    }
-
     /**
      * Register URL shortening services.
      *
