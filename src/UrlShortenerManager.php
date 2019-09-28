@@ -9,7 +9,6 @@ use Psr\Http\Message\UriFactoryInterface;
 
 class UrlShortenerManager extends Manager implements Factory
 {
-
     /**
      * {@inheritDoc}
      */
