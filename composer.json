@@ -25,7 +25,6 @@
     ],
     "require": {
         "php": "^7.1",
-        "guzzlehttp/promises": "^1.0",
         "illuminate/support": "^5.1 || ^6.0",
         "psr/http-client-implementation": "^1.0",
         "psr/http-factory-implementation": "^1.0",
