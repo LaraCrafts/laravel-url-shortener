@@ -5,10 +5,10 @@ namespace LaraCrafts\UrlShortener\Contracts;
 interface Factory
 {
     /**
-     * Get a shortener instance.
+     * Get a client instance.
      *
      * @param string|null $name
-     * @return \LaraCrafts\UrlShortener\Contracts\Shortener
+     * @return \LaraCrafts\UrlShortener\Contracts\Client
      */
-    public function shortener(string $name = null);
+    public function client(string $name = null);
 }
