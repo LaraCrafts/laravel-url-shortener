@@ -32,20 +32,39 @@ Powerful URL shortening tools in Laravel
 - [License](#license)
     
 ## Installation
-You can easily install this package using Composer, by running the following command:
-
-```bash
-composer require laracrafts/laravel-url-shortener
-```
+You can easily install this package using Composer.
 
 ### Requirements
 This package has the following requirements:
 
 - PHP 7.1 or higher
 - Laravel 5.1 or higher
+- [PSR-7](https://packagist.org/providers/psr/http-message-implementation) and
+[PSR-17](https://packagist.org/providers/psr/http-factory-implementation) compliant HTTP message library
 
-### Laravel 5.5+
-If you use Laravel 5.5 or higher, that's it. You can now use the package, continue to the [usage](#usage) section.
+### Installing this package with Guzzle
+```bash
+composer require laracrafts/laravel-url-shortener guzzlehttp/guzzle http-interop/http-factory-guzzle
+```
+
+### Installing this package with Zend Diactoros
+```bash
+composer require laracrafts/laravel-url-shortener zendframework/zend-diactoros
+```
+
+### Installing this package with other PSR compliant libraries
+```bash
+composer require laracrafts/laravel-url-shortener <YOUR PSR COMPLIANT LIBRARY HERE>
+```
+
+Then add the following line to the register method of your AppServiceProvider located in app/Providers:
+
+```php
+public function register()
+{
+    $this->app->bind('\Psr\Http\Message\UriFactoryInterface', <YOUR URI FACTORY HERE>);
+}
+```
 
 ### Laravel 5.1-5.4
 If you're using an older version of Laravel, register the package's service provider to your application. You can do
