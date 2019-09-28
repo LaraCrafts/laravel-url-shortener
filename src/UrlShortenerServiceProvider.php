@@ -4,6 +4,7 @@ namespace LaraCrafts\UrlShortener;
 
 use Illuminate\Support\ServiceProvider;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 
 class UrlShortenerServiceProvider extends ServiceProvider
@@ -15,8 +16,8 @@ class UrlShortenerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->resolveFactories();
         $this->resolveHttpClient();
-        $this->resolveUriFactory();
     }
 
     /**
@@ -37,11 +38,11 @@ class UrlShortenerServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register a PSR-17 compatible URI factory.
+     * Register a PSR-17 compatible Request and URI factory.
      *
      * @return void
      */
-    protected function resolveUriFactory()
+    protected function resolveFactories()
     {
         if ($this->app->bound(UriFactoryInterface::class)) {
             return;
@@ -49,13 +50,12 @@ class UrlShortenerServiceProvider extends ServiceProvider
 
         if (class_exists('\GuzzleHttp\Psr7\HttpFactory')) {
             # Guzzle 7
+            $this->app->bind(RequestFactoryInterface::class, '\GuzzleHttp\Psr7\HttpFactory');
             $this->app->bind(UriFactoryInterface::class, '\GuzzleHttp\Psr7\HttpFactory');
         } elseif (class_exists('\Http\Factory\Guzzle\UriFactory')) {
             # HTTP Interop adapter for Guzzle 6
+            $this->app->bind(RequestFactoryInterface::class, '\Http\Factory\Guzzle\RequestFactory');
             $this->app->bind(UriFactoryInterface::class, '\Http\Factory\Guzzle\UriFactory');
-        } elseif (class_exists('\Zend\Diactoros\UriFactory')) {
-            # Zend Diactoros
-            $this->app->bind(UriFactoryInterface::class, '\Zend\Diactoros\UriFactory');
         }
     }
 }
