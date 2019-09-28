@@ -2,8 +2,10 @@
 
 namespace LaraCrafts\UrlShortener;
 
+use Http\Discovery\Psr17FactoryDiscovery;
 use Illuminate\Support\ServiceProvider;
 use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 
 class UrlShortenerServiceProvider extends ServiceProvider
@@ -19,24 +21,22 @@ class UrlShortenerServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register a PSR-17 compatible Request and URI factory.
+     * Register a PSR-17 compatible factories to the container.
      *
      * @return void
      */
     protected function resolveFactories()
     {
-        if ($this->app->bound(UriFactoryInterface::class)) {
-            return;
-        }
+        $this->app->bindIf(RequestFactoryInterface::class, function () {
+            return Psr17FactoryDiscovery::findRequestFactory();
+        });
 
-        if (class_exists('\GuzzleHttp\Psr7\HttpFactory')) {
-            # Guzzle 7
-            $this->app->bind(RequestFactoryInterface::class, '\GuzzleHttp\Psr7\HttpFactory');
-            $this->app->bind(UriFactoryInterface::class, '\GuzzleHttp\Psr7\HttpFactory');
-        } elseif (class_exists('\Http\Factory\Guzzle\UriFactory')) {
-            # HTTP Interop adapter for Guzzle 6
-            $this->app->bind(RequestFactoryInterface::class, '\Http\Factory\Guzzle\RequestFactory');
-            $this->app->bind(UriFactoryInterface::class, '\Http\Factory\Guzzle\UriFactory');
-        }
+        $this->app->bindIf(ResponseFactoryInterface::class, function () {
+            return Psr17FactoryDiscovery::findResponseFactory();
+        });
+
+        $this->app->bindIf(UriFactoryInterface::class, function () {
+            return Psr17FactoryDiscovery::findUrlFactory();
+        });
     }
 }
