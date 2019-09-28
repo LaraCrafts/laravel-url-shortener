@@ -11,7 +11,8 @@ Powerful URL shortening tools in Laravel
 
 - [Installation](#installation)
     - [Requirements](#requirements)
-    - [Laravel 5.5+](#laravel-55)
+    - [Express installation](#express-installation)
+    - [Advanced installation](#advanced-installation)
     - [Laravel 5.1-5.4](#laravel-51-54)
 - [Usage](#usage)
     - [Changing the driver](#changing-the-driver)
@@ -43,29 +44,15 @@ This package has the following requirements:
 [PSR-17](https://packagist.org/providers/psr/http-factory-implementation) and
 [PSR-18](https://packagist.org/packages/symfony/http-client)
 
-### Installing this package with Guzzle 6
+### Express installation
+If you don't care about what HTTP libraries are used, run the following command to install this package with Guzzle 6:
+
 ```bash
-composer require laracrafts/laravel-url-shortener guzzlehttp/guzzle:^6.0 http-interop/http-factory-guzzle php-http/guzzle6-adapter
+composer require guzzlehttp/guzzle:^6.0 http-interop/http-factory-guzzle laracrafts/laravel-url-shortener php-http/guzzle6-adapter
 ```
 
-### Installing this package with Zend Diactoros
-```bash
-composer require laracrafts/laravel-url-shortener zendframework/zend-diactoros
-```
-
-### Installing this package with other PSR compliant libraries
-```bash
-composer require laracrafts/laravel-url-shortener <YOUR PSR COMPLIANT LIBRARY HERE>
-```
-
-Then add the following line to the register method of your AppServiceProvider located in app/Providers:
-
-```php
-public function register()
-{
-    $this->app->bind('\Psr\Http\Message\UriFactoryInterface', <YOUR URI FACTORY HERE>);
-}
-```
+### Advanced installation
+Please read the advanced [installation guide](docs/ADVANCED-INSTALL.md).
 
 ### Laravel 5.1-5.4
 If you're using an older version of Laravel, register the package's service provider to your application. You can do
