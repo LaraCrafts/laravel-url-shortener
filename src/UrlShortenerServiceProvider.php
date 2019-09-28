@@ -34,9 +34,6 @@ class UrlShortenerServiceProvider extends ServiceProvider
         } elseif (class_exists('\Http\Factory\Guzzle\UriFactory')) {
             # HTTP Interop adapter for Guzzle 6
             $this->app->bind(UriFactoryInterface::class, '\Http\Factory\Guzzle\UriFactory');
-        } elseif (class_exists('\Zend\Diactoros\UriFactory')) {
-            # Zend Diactoros
-            $this->app->bind(UriFactoryInterface::class, '\Zend\Diactoros\UriFactory');
         }
     }
 }
