@@ -11,7 +11,8 @@ Powerful URL shortening tools in Laravel
 
 - [Installation](#installation)
     - [Requirements](#requirements)
-    - [Laravel 5.5+](#laravel-55)
+    - [Express installation](#express-installation)
+    - [Advanced installation](#advanced-installation)
     - [Laravel 5.1-5.4](#laravel-51-54)
 - [Usage](#usage)
     - [Changing the driver](#changing-the-driver)
@@ -39,31 +40,43 @@ This package has the following requirements:
 
 - PHP 7.1 or higher
 - Laravel 5.1 or higher
-- [PSR-7](https://packagist.org/providers/psr/http-message-implementation) and
-[PSR-17](https://packagist.org/providers/psr/http-factory-implementation) compliant HTTP message library
+- Compliance with [PSR-7](https://packagist.org/providers/psr/http-message-implementation),
+[PSR-17](https://packagist.org/providers/psr/http-factory-implementation) and
+[PSR-18](https://packagist.org/packages/symfony/http-client)
 
-### Installing this package with Guzzle
+### Express installation
+If you don't care about what HTTP libraries are used, run the following command to install this package with Guzzle 6:
+
 ```bash
-composer require laracrafts/laravel-url-shortener guzzlehttp/guzzle http-interop/http-factory-guzzle
+composer require guzzlehttp/guzzle:^6.0 http-interop/http-factory-guzzle laracrafts/laravel-url-shortener php-http/guzzle6-adapter
 ```
 
-### Installing this package with Zend Diactoros
-```bash
-composer require laracrafts/laravel-url-shortener zendframework/zend-diactoros
-```
-
-### Installing this package with other PSR compliant libraries
-```bash
-composer require laracrafts/laravel-url-shortener <YOUR PSR COMPLIANT LIBRARY HERE>
-```
-
-Then add the following line to the register method of your AppServiceProvider located in app/Providers:
+### Advanced installation
+First, you must install [PSR-7](https://packagist.org/providers/psr/http-message-implementation),
+[PSR-17](https://packagist.org/providers/psr/http-factory-implementation) and
+[PSR-18](https://packagist.org/providers/psr/http-client-implementation) compatible libraries. Then, you can install
+this package by running the following command:
 
 ```php
-public function register()
+composer require laracrafts/laravel-url-shortener
+```
+
+This package
+uses `php-http/discovery` and should pick up on each of your PSR compatible packages automatically. However if it
+does not, bind each missing PSR interface to the service container as detailed below.
+
+```php
+class AppServiceProvider extends ServiceProvider
 {
-    $this->app->bind('\Psr\Http\Message\UriFactoryInterface', <YOUR URI FACTORY HERE>);
+    public function register()
+    {
+        $this->app->bind('\Psr\Http\Client\ClientInterface', MyHttpClient::class);
+        $this->app->bind('\Psr\Http\Message\RequestFactoryInterface', MyRequestFactory::class);
+        $this->app->bind('\Psr\Http\Message\ResponseFactoryInterface', MyResponseFactory::class);
+        $this->app->bind('\Psr\Http\Message\UriFactoryInterface', MyUriFactory::class);
+    }
 }
+
 ```
 
 ## Usage

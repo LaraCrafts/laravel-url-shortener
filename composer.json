@@ -27,6 +27,7 @@
         "php": "^7.1",
         "illuminate/support": "^5.5 || ^6.0",
         "php-http/discovery": "^1.6",
+        "psr/http-client-implementation": "^1.0",
         "psr/http-factory-implementation": "^1.0",
         "psr/http-message-implementation": "^1.0"
     },
@@ -34,8 +35,8 @@
         "fzaninotto/faker": "^1.8",
         "illuminate/routing": "^5.1 || ^6.0",
         "mockery/mockery": "^1.2",
-        "php-http/mock-client": "^1.0",
-        "phpunit/phpunit": "^6.0 || ^7.0",
+        "php-http/mock-client": "dev-upgrade-version-2",
+        "phpunit/phpunit": "^5.2 || ^6.0 || ^7.0",
         "zendframework/zend-diactoros": "^2.0"
     },
     "autoload": {
