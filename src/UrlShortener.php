@@ -7,19 +7,16 @@ use LaraCrafts\UrlShortener\Contracts\Client;
 class UrlShortener implements Client
 {
     protected $driver;
-    protected $options;
 
     /**
      * Create a new URL shortener.
      *
      * @param object $driver
-     * @param array $options
      * @return void
      */
-    public function __construct($driver, array $options = [])
+    public function __construct($driver)
     {
         $this->driver = $driver;
-        $this->options = $options;
     }
 
     /**
@@ -33,8 +30,8 @@ class UrlShortener implements Client
     /**
      * {@inheritDoc}
      */
-    public function shorten($uri, array $options = [])
+    public function shorten($uri)
     {
-        return new Builder($this, $uri, array_merge_recursive($this->options, $options));
+        return new Builder($this, $uri);
     }
 }

@@ -23,13 +23,12 @@ class Builder
      *
      * @param \LaraCrafts\UrlShortener\Contracts\Client $client
      * @param \Psr\Http\Message\UriInterface|string $uri
-     * @param array $options
      * @return void
      */
-    public function __construct(Client $client, $uri, array $options)
+    public function __construct(Client $client, $uri)
     {
         $this->client = $client;
-        $this->options = $options;
+        $this->options = [];
         $this->uri = $this->parseUri($uri);
     }
 
