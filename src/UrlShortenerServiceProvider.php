@@ -21,7 +21,7 @@ class UrlShortenerServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register a PSR-17 compatible factories to the container.
+     * Register PSR-17 compatible factories to the container.
      *
      * @return void
      */
