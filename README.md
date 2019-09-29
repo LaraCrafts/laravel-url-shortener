@@ -79,18 +79,6 @@ class AppServiceProvider extends ServiceProvider
 
 ```
 
-### Laravel 5.1-5.4
-If you're using an older version of Laravel, register the package's service provider to your application. You can do
-this by adding the following line to your `config/app.php` file:
-
-```php
-'providers' => [
-   ...
-   LaraCrafts\UrlShortener\UrlShortenerServiceProvider::class,
-   ...
-],
-```
-
 ## Usage
 The shortener can be retrieved from the container in two ways:
 
