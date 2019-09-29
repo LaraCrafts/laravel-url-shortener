@@ -4,6 +4,8 @@ namespace LaraCrafts\UrlShortener;
 
 use Illuminate\Support\Manager;
 use LaraCrafts\UrlShortener\Contracts\Factory;
+use LaraCrafts\UrlShortener\Http\TinyUrl;
+use Psr\Http\Message\UriFactoryInterface;
 
 class UrlShortenerManager extends Manager implements Factory
 {
@@ -13,6 +15,16 @@ class UrlShortenerManager extends Manager implements Factory
     public function client(string $name = null)
     {
         return $this->driver($name);
+    }
+
+    /**
+     * Create an instance of the TinyURL driver.
+     *
+     * @return \LaraCrafts\UrlShortener\UrlShortener
+     */
+    protected function createTinyUrlDriver()
+    {
+        return new UrlShortener($this->app[TinyUrl::class], $this->app[UriFactoryInterface::class]);
     }
 
     /**
