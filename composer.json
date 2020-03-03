@@ -28,11 +28,11 @@
         "guzzlehttp/guzzle": "^6.2",
         "guzzlehttp/promises": "^1.0",
         "guzzlehttp/psr7": "^1.4",
-        "illuminate/support": "^5.1 || ^6.0",
+        "illuminate/support": "^5.1 || ^6.0 || ^7.0",
         "psr/http-message": "^1.0"
     },
     "require-dev": {
-        "illuminate/routing": "^5.1 || ^6.0",
+        "illuminate/routing": "^5.1 || ^6.0 || ^7.0",
         "phpunit/phpunit": "^5.2 || ^6.0 || ^7.0"
     },
     "autoload": {
