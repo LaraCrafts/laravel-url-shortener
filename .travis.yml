@@ -31,7 +31,6 @@ dist: xenial
 
 before_install:
   - composer require illuminate/support:${ILLUMINATE_VERSION} --no-update
-  - composer require phpunit/phpunit:"${PHPUNIT_VERSION}" --dev --no-update
 
 install:
   - composer install --no-interaction --no-progress --no-suggest --prefer-dist
