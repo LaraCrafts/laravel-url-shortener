@@ -24,9 +24,11 @@ env:
 
 matrix:
   exclude:
-    # Laravel 6 does not support PHP 7.1
+    # Laravel 6+ does not support PHP 7.1
     - php: 7.1
       env: ILLUMINATE_VERSION=^6.0  PHPUNIT_VERSION=^7.0
+    - php: 7.1
+      env: ILLUMINATE_VERSION=^7.0  PHPUNIT_VERSION=^7.0
 
 dist: xenial
 sudo: false
